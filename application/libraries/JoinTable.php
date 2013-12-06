@@ -55,8 +55,6 @@ class JoinTable extends CI_Model {
         }
         return NULL;
     }
-
-    //
 //SELECT * FROM `entity` AS e
 //JOIN `attribute` AS a
 //ON e.`EID`=a.`EID`
