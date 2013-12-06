@@ -1,20 +1,20 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 if (!class_exists('CI_Model')) {
     require_once(BASEPATH . 'core/Model.php');
 }
 
-class JoinTable extends CI_Model
-{
-    public function __construct()
-    {
+class JoinTable extends CI_Model {
+
+    public function __construct() {
         parent::__construct();
         $this->load->database();
     }
 
-    public function getTable($tableName, $arrGetColumn = NULL, $arrWhere = NULL)
-    {
+    public function getTable($tableName, $arrGetColumn = NULL, $arrWhere = NULL) {
         $result = NULL;
         if (count($arrGetColumn) > 0) {
             $column = implode(",", $arrGetColumn);
@@ -32,8 +32,7 @@ class JoinTable extends CI_Model
 
     //SELECT column_name FROM information_schema.columns
     //WHERE table_name = 'entity'
-    public function getColumnTable($tableName)
-    {
+    public function getColumnTable($tableName) {
         $_tableName = "information_schema.columns";
         $_arrColumn = array("column_name");
         $_arrWhere = array("table_name" => $tableName);
@@ -46,8 +45,7 @@ class JoinTable extends CI_Model
         return $arrColumns;
     }
 
-    public function checkReferent($table1, $table2)
-    {
+    public function checkReferent($table1, $table2) {
         $arrColumn1 = $this->getColumnTable($table1);
         $arrColumn2 = $this->getColumnTable($table2);
         foreach ($arrColumn1 as $column1) {
@@ -57,6 +55,7 @@ class JoinTable extends CI_Model
         }
         return NULL;
     }
+
     //
 //SELECT * FROM `entity` AS e
 //JOIN `attribute` AS a
@@ -64,20 +63,22 @@ class JoinTable extends CI_Model
 //JOIN `value_varchar` AS v
 //ON a.`AID`=v.`AID`
 
-    public function joinTable($arrTable,$arrTableColumn,$arrWhere=NULL)
-    {
-        $query="SELECT ";
-        if(count($arrTableColumn)>0){
-            foreach($arrTableColumn as $_table => $_column){
-                foreach($_column as $_col){
-                    $query.= $_table.".".$_col.",";
+    public function joinTable($arrTable, $arrTableColumn, $arrWhere = NULL) {
+        $query = "SELECT ";
+        if (count($arrTableColumn) > 0) {
+            foreach ($arrTableColumn as $_table => $_column) {
+                foreach ($_column as $_col) {
+                    $query.= $_table . "." . $_col . ",";
                 }
             }
-        }else{
+            $query= rtrim($query, ",");
+        } else {
             $query.= "*";
         }
 
         return $query;
     }
+
 }
+
 ?>
