@@ -22,14 +22,9 @@ class Index extends CI_Controller
         echo "<br/>===============================================<br/>";
         echo $this->join_table->Check_referent("type", "attribute");
         echo "<br/>================================================<br/>";
-        $col= array("A"=>array("aaaa","aa"));
-        foreach($col as $a =>$v){
-            echo $a;
-           // foreach($a as $v){
-             //   echo $a ."==>".$v;
-           // }
-        }
-        $arrTable= array("An"=>"A");
+        $col= array("A"=>array("aaaa","aa"), "B"=>array("bb","bbb","bbbb"));
+       
+        $arrTable= array("An"=>"a","BB"=>"b","CC"=>"c","DD"=>"d");
         echo $this->join_table->Join_table($arrTable,$col);
         die();
 

@@ -29,6 +29,7 @@ class Join_table extends CI_Model {
         $result = $query->result_array();
         return $result;
     }
+
     public function Get_column_table($table_name) {
         $_table_name = "information_schema.columns";
         $_arr_column = array("column_name");
@@ -52,13 +53,14 @@ class Join_table extends CI_Model {
         }
         return NULL;
     }
+
 //SELECT * FROM `entity` AS e
 //JOIN `attribute` AS a
 //ON e.`EID`=a.`EID`
 //JOIN `value_varchar` AS v
 //ON a.`AID`=v.`AID`
 
-    public function Join_table($arr_table, $arr_table_column, $arr_where = NULL) {
+    public function Join_table($arr_table, $arr_table_column, $join = "JOIN", $arr_where = NULL) {
         $query = "SELECT ";
         if (count($arr_table_column) > 0) {
             foreach ($arr_table_column as $_table => $_column) {
@@ -66,15 +68,31 @@ class Join_table extends CI_Model {
                     $query.= $_table . "." . $_col . ",";
                 }
             }
-            $query= rtrim($query, ",");
+            $query = rtrim($query, ",");
         } else {
             $query.= "*";
         }
         $query.=" FROM ";
-        if(count($arr_table)>0){
-            
-        }else{
-            $query= NULL;
+        if (count($arr_table) > 0) {
+            $i = 0;
+            $table1="";
+            $table2="";
+            foreach ($arr_table as $table => $as) {
+                if ($i > 0) {
+                    if ($i > 1) {
+                        $query.=" ON ";
+                        $query.= $as.".";
+                    }
+                    $query.=" " . $join . " ";
+
+                    //$query = substr($query, -strlen($query), -strlen($join) - 2);
+                    // $i=0;
+                }
+                $query.= $table . " AS " . $as;
+                $i++;
+            }
+        } else {
+            $query = NULL;
         }
         return $query;
     }
