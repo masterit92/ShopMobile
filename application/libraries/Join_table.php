@@ -86,7 +86,7 @@ class Join_table extends CI_Model {
                     $query.=" " . $join . " ";
 
                     //$query = substr($query, -strlen($query), -strlen($join) - 2);
-                    // $i=0;
+                   
                 }
                 $query.= $table . " AS " . $as;
                 $i++;
