@@ -10,17 +10,17 @@ class Index extends CI_Controller
 
     public function index()
     {
-        $this->load->library("jointable");
+        $this->load->library("join_table");
         $arrCl = array("column_name");
         $arrW = array("table_name" => "entity");
-        $column = $this->jointable->getColumnTable("entity");
+        $column = $this->join_table->Get_column_table("entity");
         foreach ($column as $c) {
 
             echo $c . "<br/>";
 
         }
         echo "<br/>===============================================<br/>";
-        echo $this->jointable->checkReferent("type", "attribute");
+        echo $this->join_table->Check_referent("type", "attribute");
         echo "<br/>================================================<br/>";
         $col= array("A"=>array("aaaa","aa"));
         foreach($col as $a =>$v){
@@ -30,7 +30,7 @@ class Index extends CI_Controller
            // }
         }
         $arrTable= array("An"=>"A");
-        echo $this->jointable->joinTable($arrTable,$col);
+        echo $this->join_table->Join_table($arrTable,$col);
         die();
 
         $this->load->view("index");
