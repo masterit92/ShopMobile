@@ -15,43 +15,55 @@ class Join_table extends CI_Model {
     }
 
     public function Get_table($table_name, $arr_get_column = NULL, $arr_where = NULL) {
-        $result = NULL;
-        if (count($arr_get_column) > 0) {
-            $column = implode(",", $arr_get_column);
-            $this->db->select($column);
-        }
-        if (count($arr_where) > 0) {
-            foreach ($arr_where as $_column => $_value) {
-                $this->db->where($_column, $_value);
+        try {
+            $result = NULL;
+            if (count($arr_get_column) > 0) {
+                $column = implode(",", $arr_get_column);
+                $this->db->select($column);
             }
+            if (count($arr_where) > 0) {
+                foreach ($arr_where as $_column => $_value) {
+                    $this->db->where($_column, $_value);
+                }
+            }
+            $query = $this->db->get($table_name);
+            $result = $query->result_array();
+            return $result;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        $query = $this->db->get($table_name);
-        $result = $query->result_array();
-        return $result;
     }
 
     public function Get_column_table($table_name) {
-        $_table_name = "information_schema.columns";
-        $_arr_column = array("column_name");
-        $_arr_where = array("table_name" => $table_name);
-        $_arr = $this->Get_table($_table_name, $_arr_column, $_arr_where);
-        foreach ($_arr as $columns) {
-            foreach ($columns as $col) {
-                $arr_columns[] = $col;
+        try {
+            $_table_name = "information_schema.columns";
+            $_arr_column = array("column_name");
+            $_arr_where = array("table_name" => $table_name);
+            $_arr = $this->Get_table($_table_name, $_arr_column, $_arr_where);
+            foreach ($_arr as $columns) {
+                foreach ($columns as $col) {
+                    $arr_columns[] = $col;
+                }
             }
+            return $arr_columns;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return $arr_columns;
     }
 
     public function Check_referent($table1, $table2) {
-        $arr_column1 = $this->Get_column_table($table1);
-        $arr_column2 = $this->Get_column_table($table2);
-        foreach ($arr_column1 as $column1) {
-            if (in_array($column1, $arr_column2)) {
-                return $column1;
+        try {
+            $arr_column1 = $this->Get_column_table($table1);
+            $arr_column2 = $this->Get_column_table($table2);
+            foreach ($arr_column1 as $column1) {
+                if (in_array($column1, $arr_column2)) {
+                    return $column1;
+                }
             }
+            return NULL;
+        } catch (Exception $ex) {
+            throw $ex;
         }
-        return NULL;
     }
 
 //SELECT * FROM `entity` AS e
@@ -59,8 +71,11 @@ class Join_table extends CI_Model {
 //ON e.`EID`=a.`EID`
 //JOIN `value_varchar` AS v
 //ON a.`AID`=v.`AID`
-
-    public function Join_table($arr_table, $arr_table_column, $join = "JOIN", $arr_where = NULL) {
+    // $arr_table("as"=>array(column))
+    // $arr_table_column("tableName"=>"as")
+    // $join= "Join" or "Left Join"....
+    // $val_where="condition:as.columnName"
+    public function Join_table($arr_table, $arr_table_column, $join = "JOIN", $val_where = NULL) {
         $query = "SELECT ";
         if (count($arr_table_column) > 0) {
             foreach ($arr_table_column as $_table => $_column) {
@@ -75,21 +90,36 @@ class Join_table extends CI_Model {
         $query.=" FROM ";
         if (count($arr_table) > 0) {
             $i = 0;
-            $table1="";
-            $table2="";
+            $arr_table_as = array();
+            $table1 = NULL;
+            $table2 = NULL;
+            $arr_reference = array();
             foreach ($arr_table as $table => $as) {
+                $arr_table_as[] = $as;
+                if ($i % 2 === 0) {
+                    $table1 = $table;
+                } else {
+                    $table2 = $table;
+                }
+                if ($table2 != NULL) {
+                    $arr_reference[] = $this->Check_referent($table1, $table2);
+                }
                 if ($i > 0) {
-                    if ($i > 1) {
-                        $query.=" ON ";
-                        $query.= $as.".";
-                    }
                     $query.=" " . $join . " ";
-
-                    //$query = substr($query, -strlen($query), -strlen($join) - 2);
-                   
                 }
                 $query.= $table . " AS " . $as;
+                if ($i > 0) {
+                    $query.=" ON ";
+                    if (count($arr_table_as) >= 2) {
+                        $query.= $arr_table_as[$i - 1] . "." . $arr_reference[$i - 1];
+                        $query.=" = ";
+                        $query.= $arr_table_as[$i] . "." . $arr_reference[$i - 1];
+                    }
+                }
                 $i++;
+            }
+            if ($val_where != NULL) {
+                    $query.=" WHERE ".$val_where." ";
             }
         } else {
             $query = NULL;

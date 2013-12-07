@@ -22,10 +22,11 @@ class Index extends CI_Controller
         echo "<br/>===============================================<br/>";
         echo $this->join_table->Check_referent("type", "attribute");
         echo "<br/>================================================<br/>";
-        $col= array("A"=>array("aaaa","aa"), "B"=>array("bb","bbb","bbbb"));
+        $col= array("e"=>array("E_ID"),"a"=>array("A_Name"),"v"=>array("V_ID","V_Value"));
        
-        $arrTable= array("An"=>"a","BB"=>"b","CC"=>"c","DD"=>"d");
-        echo $this->join_table->Join_table($arrTable,$col);
+        $arrTable= array("entity"=>"e","attribute"=>"a","value_varchar"=>"v");
+        $val_where="v.V_ID=1";
+        echo $this->join_table->Join_table($arrTable,$col,"INNER JOIN",$val_where);
         die();
 
         $this->load->view("index");
