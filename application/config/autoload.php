@@ -52,7 +52,8 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array("Join_table");
+$autoload['libraries'] = array("My_database","Render","DTO_user","DTO_role_and_user","DTO_role",
+                                "DTO_product","DTO_image","DTO_category","DTO_cat_and_pro","session");
 
 
 /*

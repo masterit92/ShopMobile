@@ -7,14 +7,14 @@ if (!class_exists('CI_Model')) {
     require_once(BASEPATH . 'core/Model.php');
 }
 
-class Join_table extends CI_Model {
+class My_database extends CI_Model {
 
     public function __construct() {
         parent::__construct();
         $this->load->database();
     }
 
-    public function Get_table($table_name, $arr_get_column = NULL, $arr_where = NULL) {
+    public function Get_table($table_name, $arr_where = NULL, $arr_get_column = NULL) {
         try {
             $result = NULL;
             if (count($arr_get_column) > 0) {
@@ -34,7 +34,7 @@ class Join_table extends CI_Model {
         }
     }
 
-    public function Get_column_table($table_name) {
+    protected function Get_column_table($table_name) {
         try {
             $_table_name = "information_schema.columns";
             $_arr_column = array("column_name");
@@ -66,13 +66,8 @@ class Join_table extends CI_Model {
         }
     }
 
-//SELECT * FROM `entity` AS e
-//JOIN `attribute` AS a
-//ON e.`EID`=a.`EID`
-//JOIN `value_varchar` AS v
-//ON a.`AID`=v.`AID`
-    // $arr_table("as"=>array(column))
-    // $arr_table_column("tableName"=>"as")
+    // $arr_table_column("as"=>array(column))
+    // $arr_table("tableName"=>"as")
     // $join= "Join" or "Left Join"....
     // $val_where="condition:as.columnName"
     public function Join_table($arr_table, $arr_table_column, $join = "JOIN", $val_where = NULL) {
@@ -119,12 +114,29 @@ class Join_table extends CI_Model {
                 $i++;
             }
             if ($val_where != NULL) {
-                    $query.=" WHERE ".$val_where." ";
+                $query.=" WHERE " . $val_where . " ";
             }
         } else {
             $query = NULL;
         }
         return $query;
+    }
+
+    public function Anti_sql($value) {
+        $value = strtolower($value);
+        $arr_key = array('--', 'jav&#x0A;ascript:', 'jav&#x0D;ascript:', 'jav&#x09;ascript:', '<!-', '<', '>',
+            '%3C', '&lt', '&lt;', '&LT', '&LT;', '&#60', '&#060', '&#0060', '&#00060', '&#000060',
+            '&#0000060', '&#60;', '&#060;', '&#0060;', '&#00060;', '&#000060;', '&#0000060;', '&#x3c',
+            '&#x03c', '&#x003c', '&#x0003c', '&#x00003c', '&#x000003c', '&#x3c;', '&#x03c;', '&#x003c;',
+            '&#x0003c;', '&#x00003c;', '&#x000003c;', '&#X3c', '&#X03c', '&#X003c', '&#X0003c', '&#X00003c',
+            '&#X000003c', '&#X3c;', '&#X03c;', '&#X003c;', '&#X0003c;', '&#X00003c;', '&#X000003c;',
+            '&#x3C', '&#x03C', '&#x003C', '&#x0003C', '&#x00003C', '&#x000003C', '&#x3C;', '&#x03C;',
+            '&#x003C;', '&#x0003C;', '&#x00003C;', '&#x000003C;', '&#X3C', '&#X03C', '&#X003C', '&#X0003C',
+            '&#X00003C', '&#X000003C', '&#X3C;', '&#X03C;', '&#X003C;', '&#X0003C;', '&#X00003C;',
+            '&#X000003C;', '\x3c', '\x3C', '\u003c', '\u003C', chr(60), chr(62));
+        ;
+        $value = str_replace($arr_key, "", $value);
+        return htmlspecialchars(trim(strip_tags(addslashes(mysql_real_escape_string($value)))));
     }
 
 }

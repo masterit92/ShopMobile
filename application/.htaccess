@@ -1,2 +1,1 @@
 Deny from all
-RewriteRule ^(.*)$ /ci_layout/index.php/$1 [L]
