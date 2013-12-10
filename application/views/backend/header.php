@@ -8,6 +8,6 @@
             echo $dto_user->getFull_name ();
             ?>
         </b>
-        <a href="<?php echo base_url (); ?>user/logout">Logout</a>
+        <a href="<?php echo base_url (); ?>admin/logout">Logout</a>
     </div>
 </div>

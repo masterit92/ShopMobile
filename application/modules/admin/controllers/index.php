@@ -1,9 +1,10 @@
 <?php
-class user extends CI_Controller {
+class Index extends CI_Controller {
 
     public function __construct ()
     {
         parent::__construct ();
+        $this->load->helper("url");
         $this->load->Model ( "m_users" );
         $this->load->helper ( 'cookie' );
     }
@@ -47,11 +48,11 @@ class user extends CI_Controller {
         }
         if ( !$flag )
         {
-            $this->load->view ( "user/index" );
+            $this->load->view ( "index/index" );
         }
         else
         {
-            redirect ( "user/home" );
+            redirect ( "admin/home" );
         }
     }
 
@@ -64,28 +65,13 @@ class user extends CI_Controller {
         //setcookie('ck_email', time() - 9600);
         //setcookie('ck_password', time() - 9600);
         //$this->load->view("user/index");
-        redirect ( "user/index" );
+        redirect ( "admin/index" );
     }
-
-    public function list_user ()
-    {
-        if ( $this->check () )
-        {
-            $temp['data'] = $this->m_users->get_all_user ();
-        }
-        else
-        {
-            $temp['data'] = "Không có quyền!";
-        }
-        $temp['title'] = "User";
-        $temp['template'] = 'list_user';
-        $this->load->view ( "backend/layout", $temp );
-    }
-
+    
     public function home ()
     {
         $temp['title'] = "Home";
-        $temp['template'] = 'user/home';
+        $temp['template'] = 'index/home';
         $this->load->view ( "backend/layout", $temp );
     }
 
@@ -107,7 +93,7 @@ class user extends CI_Controller {
         }
         else
         {
-            redirect ( "user/index" );
+            redirect ( "admin/index" );
         }
     }
 

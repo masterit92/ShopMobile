@@ -1,0 +1,7 @@
+- git status
+- git ass -A
+- git status
+- git commit -am "mess"
+- git pull
+- git push
+- git status
