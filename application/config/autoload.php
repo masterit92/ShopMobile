@@ -52,8 +52,9 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array("My_database","Render","DTO_user","DTO_role_and_user","DTO_role",
-                                "DTO_product","DTO_image","DTO_category","DTO_cat_and_pro","session");
+$autoload['libraries'] = array("my_database","render","dto_user","dto_role_and_user","dto_role",
+                                "dto_product","dto_image","dto_category","dto_cat_and_pro","session"
+                                );
 
 
 /*
@@ -65,7 +66,7 @@ $autoload['libraries'] = array("My_database","Render","DTO_user","DTO_role_and_u
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array();
+$autoload['helper'] = array("url");
 
 
 /*

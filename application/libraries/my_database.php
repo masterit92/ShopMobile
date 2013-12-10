@@ -13,6 +13,52 @@ class My_database extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    //$arr_condition=array('column'=>'value')
+    public function delete($table_name,$arr_condition)
+    {
+        try 
+        {
+            foreach ($arr_condition as $key=>$value) {
+                $this->db->where("$key","$value");
+            }
+            $this->db->delete($table_name);
+            return TRUE;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+            return FALSE;
+        }
+        return FALSE;
+    }
+    public function update($table_name,$arr_data)
+    {
+        try
+        {
+            $this->db->update($table_name,$arr_data);  
+            return TRUE;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+            return FALSE;
+        }
+        return FALSE;
+    }
+    public function insert($table_name,$arr_data)
+    {
+        try
+        {
+            $this->db->insert($table_name,$arr_data);  
+            return TRUE;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+            return FALSE;
+        }
+        return FALSE;
+    }
 
     public function get_table($table_name, $arr_where = NULL, $arr_get_column = NULL)
     {
@@ -48,7 +94,7 @@ class My_database extends CI_Model {
             $_table_name = "information_schema.columns";
             $_arr_column = array("column_name");
             $_arr_where = array("table_name" => $table_name);
-            $_arr = $this->get_table($_table_name, $_arr_column, $_arr_where);
+            $_arr = $this->get_table($_table_name, $_arr_where,$_arr_column);
             foreach ($_arr as $columns)
             {
                 foreach ($columns as $col)

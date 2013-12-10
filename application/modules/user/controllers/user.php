@@ -4,7 +4,6 @@ class user extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper("url");
         $this->load->Model("m_users");
         $this->load->helper('cookie');
     }
@@ -37,6 +36,8 @@ class user extends CI_Controller {
                     $this->input->set_cookie('ck_email', $email, (2 * 24 * 3600), '', '/', '', TRUE);
                     $this->input->set_cookie('ck_password', $pass, (2 * 24 * 3600), '', '/', '', TRUE);
                 }
+                $arr_role=$this->m_users->check_role($dto_user->getUser_id());
+                $this->session->set_userdata('user_role', $arr_role);
                 $flag = TRUE;
             }
             else
@@ -50,9 +51,7 @@ class user extends CI_Controller {
         }
         else
         {
-            $temp['title'] = "Admin";
-            $temp['template'] = 'user/success';
-            $this->load->view("backend/layout", $temp);
+            redirect("user/home");
         }
     }
 
@@ -64,11 +63,40 @@ class user extends CI_Controller {
         //delete_cookie('ck_password'); 
         //setcookie('ck_email', time() - 9600);
         //setcookie('ck_password', time() - 9600);
-        $this->load->view("user/index");
+        //$this->load->view("user/index");
+        redirect("user/index");
     }
     public function list_user()
     {
-        
+        if($this->check()){
+            $temp['data']=$this->m_users->get_all_user();
+        }else{
+             $temp['data']="Không có quyền!";
+        }
+        $temp['title'] = "User";
+        $temp['template'] = 'list_user';
+        $this->load->view("backend/layout", $temp);
     }
+    public function home(){
+        $temp['title'] = "Home";
+        $temp['template'] = 'user/home';
+        $this->load->view("backend/layout", $temp);
+    }
+    
+    protected function check()
+    {
+        if ($this->session->userdata("user_role") && $this->session->userdata("user_infor")) {
+            foreach ($this->session->userdata("user_role") as $roles) {
+                if (in_array('admin', $roles) OR in_array($this->uri->segment(1), $roles)) {
+                    return TRUE;
+                } else {
+                    return FALSE;
+                }
+            }
+        } else {
+            redirect("user/index");
+        }
+    }
+
 }
 ?>

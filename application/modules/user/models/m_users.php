@@ -8,12 +8,8 @@ class M_users extends My_database {
 
     private function set_value_profile($row_user)
     {
-        $user = NULL;
-        foreach ($row_user as $value)
-        {
-            $user = new DTO_user();
-            $user->set_property($value["User_id"], $value["Email"], $value["Password"], $value["Full_name"], $value["Status"]);
-        }
+        $user = new DTO_user();
+        $user->set_property($row_user["User_id"], $row_user["Email"], $row_user["Password"], $row_user["Full_name"], $row_user["Status"]);
         return $user;
     }
 
@@ -27,7 +23,9 @@ class M_users extends My_database {
             {
                 $arr_where = array("Email" => $email, "Password" => $password, "Status" => "1");
                 $user = $this->get_table("users", $arr_where);
-                return $this->set_value_profile($user);
+                foreach ($user as $value) {
+                    return $this->set_value_profile($value);
+                }
             }
             catch (Exception $ex)
             {
@@ -55,12 +53,38 @@ class M_users extends My_database {
         }
         return NULL;
     }
+    public function delete_user($user_id)
+    {
+        $user_id=$this->anti_sql($user_id);
+        try
+        {
+            
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 
     public function check_role($user_id)
     {
-        $arr_table = array('u' => array('User_id', 'Status'), 'r' => array('Role_id', 'Parent_id'));
-       // $query = $this->join_table($arr_table, $arr_table_column, $join, $val_where);
+        try
+        {
+            $arr_table_column = array('r' => array('Name'));
+            $arr_table=array("users"=>"u","role_and_user"=>"r_a_u","role"=>"r");
+            $join="INNER JOIN";
+            $val_where="u.User_id='$user_id' and u.Status=1 and r.Status=1";
+            $query = $this->join_table($arr_table, $arr_table_column, $join, $val_where);
+            $result=$this->db->query($query);
+            return $result->result_array();
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+        return NULL;
     }
+   
 
 }
 ?>

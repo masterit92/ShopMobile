@@ -8,7 +8,7 @@ if (!$this->session->userdata("user_infor")) {
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <?php
-        $arr_file_css = array("style_admin.css");
+        $arr_file_css = array("style_admin.css","table.css","menu_left.css");
         echo $this->render->Render_css($arr_file_css,'backend');
         ?> 
         <title><?php echo $title; ?></title> 
@@ -25,6 +25,7 @@ if (!$this->session->userdata("user_infor")) {
                     ?>  
                 </div>
             </div>
+            <div class="clear"></div>
             <?php $this->load->view("backend/footer"); ?> 
         </div>
     </body> 
