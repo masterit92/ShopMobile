@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array("my_database","render","dto_user","dto_role_and_user","dto_role",
+$autoload['libraries'] = array("render","dto_user","dto_role_and_user","dto_role",
                                 "dto_product","dto_image","dto_category","dto_cat_and_pro","session"
                                 );
 
@@ -111,7 +111,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array("my_database");
 
 
 /* End of file autoload.php */

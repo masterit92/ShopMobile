@@ -34,13 +34,18 @@ if (!is_array($data))
                         ?>
                     </td>
                     <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="<?php base_url (); ?>edit?id=<?php echo $user->getUser_id();?>">Edit</a>
+                        <a href="<?php base_url (); ?>delete?id=<?php echo $user->getUser_id();?>">Delete</a>
                     </td>
                 </tr>
         <?php
     }
     ?>
+                <tr>
+                    <td colspan="5">
+                        <a href="<?php base_url (); ?>create">Add New</a>
+                    </td>
+                </tr>
         </tbody>
     </table>
     <?php

@@ -56,11 +56,12 @@ body{
 }
 .container-right{
     width: 840px;
-    min-height: 100px;
+    min-height: 250px;
     background: #33ff66;
     float: right;
     margin-left: 10px;
     color: #fff;
+    margin-bottom: 10px;
    background-image: url('../images/bg_right.jpg');
 }
 .clear{

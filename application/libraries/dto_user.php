@@ -1,5 +1,5 @@
 <?php
-class DTO_user {
+class DTO_user{
 
     private $user_id;
     private $email;
@@ -68,4 +68,3 @@ class DTO_user {
 
 }
 
-?>

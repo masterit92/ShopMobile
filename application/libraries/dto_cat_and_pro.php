@@ -31,5 +31,3 @@ class DTO_cat_and_pro {
     }
 
 }
-
-?>

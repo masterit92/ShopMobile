@@ -55,5 +55,3 @@ class DTO_image {
     }
 
 }
-
-?>

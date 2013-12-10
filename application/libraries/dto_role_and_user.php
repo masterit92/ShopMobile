@@ -32,4 +32,3 @@ class DTO_role_and_user {
 
 }
 
-?>

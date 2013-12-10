@@ -56,4 +56,3 @@ class DTO_category {
 
 }
 
-?>

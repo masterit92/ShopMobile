@@ -34,10 +34,14 @@ class My_database extends CI_Model {
         return FALSE;
     }
 
-    public function update ( $table_name, $arr_data )
+    public function update ( $table_name, $arr_condition,$arr_data )
     {
         try
         {
+            foreach ( $arr_condition as $key => $value )
+            {
+                $this->db->where ( "$key", "$value" );
+            }
             $this->db->update ( $table_name, $arr_data );
             return TRUE;
         }
@@ -228,5 +232,3 @@ class My_database extends CI_Model {
     }
 
 }
-
-?>

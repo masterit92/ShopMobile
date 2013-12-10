@@ -6,7 +6,8 @@ class Index extends CI_Controller {
         parent::__construct ();
         $this->load->helper("url");
         $this->load->Model ( "m_users" );
-        $this->load->helper ( 'cookie' );
+        //$this->load->Model ( "dto_user" );
+       // $this->load->helper ( 'cookie' );
     }
 
     public function index ()
@@ -21,6 +22,7 @@ class Index extends CI_Controller {
 //        }
         if ( $this->session->userdata ( "user_infor" ) )
         {
+           // var_dump($this->session->userdata ( "user_infor" ));die();
             $flag = TRUE;
         }
         if ( isset ( $_POST['tbnLogin'] ) )
@@ -28,22 +30,22 @@ class Index extends CI_Controller {
             $email = $_POST['username'];
             $pass = $_POST['password'];
             $dto_user = new DTO_user();
-            $dto_user = $this->m_users->Check_Login ( $email, $pass );
+            $dto_user = $this->m_users->check_login ( $email, $pass );
             if ( $dto_user != NULL )
             {
                 $this->session->set_userdata ( 'user_infor', $dto_user );
-                if ( isset ( $_POST['loginkeeping'] ) )
-                {
-                    $this->input->set_cookie ( 'ck_email', $email, (2 * 24 * 3600 ), '', '/', '', TRUE );
-                    $this->input->set_cookie ( 'ck_password', $pass, (2 * 24 * 3600 ), '', '/', '', TRUE );
-                }
+//                if ( isset ( $_POST['loginkeeping'] ) )
+//                {
+//                    $this->input->set_cookie ( 'ck_email', $email, (2 * 24 * 3600 ), '', '/', '', TRUE );
+//                    $this->input->set_cookie ( 'ck_password', $pass, (2 * 24 * 3600 ), '', '/', '', TRUE );
+//                }
                 $arr_role = $this->m_users->check_role ( $dto_user->getUser_id () );
                 $this->session->set_userdata ( 'user_role', $arr_role );
                 $flag = TRUE;
             }
             else
             {
-                $this->session->set_flashdata ( 'login_error', 'Username or password is not correct!' );
+               $this->session->set_flashdata ( 'login_error', 'Username or password is not correct!' );
             }
         }
         if ( !$flag )
@@ -52,7 +54,12 @@ class Index extends CI_Controller {
         }
         else
         {
-            redirect ( "admin/home" );
+            $temp['title'] = "Home";
+            $temp['template'] = 'index/home';
+            $this->load->view ( "backend/layout", $temp );
+           // $this->load->view ( "index/home" );
+          //  var_dump($this->session->userdata ( "user_infor" ));die();
+           // redirect ( "admin/home" );
         }
     }
 
@@ -98,5 +105,4 @@ class Index extends CI_Controller {
     }
 
 }
-
 ?>

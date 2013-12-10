@@ -1,7 +1,10 @@
 <?php
+
 class M_users extends My_database {
 
-    function __construct ()
+    private $table_name = "users";
+
+    public function __construct ()
     {
         parent::__construct ();
     }
@@ -13,7 +16,7 @@ class M_users extends My_database {
         return $user;
     }
 
-    public function check_Login ( $email, $password )
+    public function check_login ( $email, $password )
     {
         if ( !empty ( $email ) && !empty ( $password ) )
         {
@@ -22,7 +25,7 @@ class M_users extends My_database {
             try
             {
                 $arr_where = array( "Email" => $email, "Password" => $password, "Status" => "1" );
-                $user = $this->get_table ( "users", $arr_where );
+                $user = $this->get_table ( $this->table_name, $arr_where );
                 foreach ( $user as $value )
                 {
                     return $this->set_value_profile ( $value );
@@ -40,7 +43,7 @@ class M_users extends My_database {
     {
         try
         {
-            $list_user = $this->get_table ( "users" );
+            $list_user = $this->get_table ( $this->table_name );
             $arr_user = array( );
             foreach ( $list_user as $value )
             {
@@ -60,12 +63,61 @@ class M_users extends My_database {
         $user_id = $this->anti_sql ( $user_id );
         try
         {
-            
+            $arr_condition = array( "User_id" => $user_id );
+            return $this->delete ( $this->table_name, $arr_condition );
         }
         catch ( Exception $ex )
         {
             throw $ex;
         }
+        return FALSE;
+    }
+
+    public function insert_user ( $arr_data )
+    {
+        try
+        {
+            return $this->insert ( $this->table_name, $arr_data );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
+    public function get_user_by_id ( $user_id )
+    {
+        $user_id = $this->anti_sql ( $user_id );
+        try
+        {
+            $arr_where=array("User_id"=>$user_id);
+            $list_user = $this->get_table ( $this->table_name, $arr_where );
+            $arr_user = array( );
+            foreach ( $list_user as $value )
+            {
+                return $this->set_value_profile ( $value );
+            }
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
+    public function update_user ( $arr_data, $user_id )
+    {
+        try
+        {
+            $arr_condition = array( "User_id" => $user_id );
+            return $this->update ( $this->table_name, $arr_condition, $arr_data );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
     }
 
     public function check_role ( $user_id )
