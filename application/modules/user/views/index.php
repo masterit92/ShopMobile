@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php
-if ($this->session->flashdata('login_error'))
+if ( $this->session->flashdata ( 'login_error' ) )
 {
-    $err = $this->session->flashdata('login_error');
+    $err = $this->session->flashdata ( 'login_error' );
     echo "<script> alert('$err');</script>";
 }
 ?>
@@ -10,10 +10,10 @@ if ($this->session->flashdata('login_error'))
     <head>
         <meta charset="UTF-8" />
         <?php
-        $arr_file_css = array("login.css", "style_login.css", "animate-custom.css");
+        $arr_file_css = array( "login.css", "style_login.css", "animate-custom.css" );
         $backend = 'backend';
-        $this->load->library("render");
-        echo $this->render->render_css($arr_file_css, $backend);
+        $this->load->library ( "render" );
+        echo $this->render->render_css ( $arr_file_css, $backend );
         ?>
         <title>Login</title>
     </head>
@@ -28,7 +28,7 @@ if ($this->session->flashdata('login_error'))
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="<?php echo base_url(); ?>user/index" autocomplete="on" method="post"> 
+                            <form  action="<?php echo base_url (); ?>user/index" autocomplete="on" method="post"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Your email or username </label>

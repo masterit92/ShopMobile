@@ -1,12 +1,14 @@
 <?php
-class DTO_product{
+class DTO_product {
+
     private $pro_id;
     private $name;
     private $price;
     private $description;
     private $quantity;
     private $status;
-    function set_property($pro_id, $name, $price, $description, $quantity, $status)
+
+    function set_property ( $pro_id, $name, $price, $description, $quantity, $status )
     {
         $this->pro_id = $pro_id;
         $this->name = $name;
@@ -15,64 +17,67 @@ class DTO_product{
         $this->quantity = $quantity;
         $this->status = $status;
     }
-    public function getPro_id()
+
+    public function getPro_id ()
     {
         return $this->pro_id;
     }
 
-    public function setPro_id($pro_id)
+    public function setPro_id ( $pro_id )
     {
         $this->pro_id = $pro_id;
     }
 
-    public function getName()
+    public function getName ()
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName ( $name )
     {
         $this->name = $name;
     }
 
-    public function getPrice()
+    public function getPrice ()
     {
         return $this->price;
     }
 
-    public function setPrice($price)
+    public function setPrice ( $price )
     {
         $this->price = $price;
     }
 
-    public function getDescription()
+    public function getDescription ()
     {
         return $this->description;
     }
 
-    public function setDescription($description)
+    public function setDescription ( $description )
     {
         $this->description = $description;
     }
 
-    public function getQuantity()
+    public function getQuantity ()
     {
         return $this->quantity;
     }
 
-    public function setQuantity($quantity)
+    public function setQuantity ( $quantity )
     {
         $this->quantity = $quantity;
     }
 
-    public function getStatus()
+    public function getStatus ()
     {
         return $this->status;
     }
 
-    public function setStatus($status)
+    public function setStatus ( $status )
     {
         $this->status = $status;
     }
+
 }
+
 ?>

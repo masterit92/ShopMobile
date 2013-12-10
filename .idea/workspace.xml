@@ -20,6 +20,7 @@
     <file path="/style_admin.css" changelist="5b81e9f0-92b0-44c7-aee7-dc2e633a4b95" time="1386667351349" ignored="false" />
     <file path="/home.php" changelist="5b81e9f0-92b0-44c7-aee7-dc2e633a4b95" time="1386667431304" ignored="false" />
     <file path="/header.php" changelist="5b81e9f0-92b0-44c7-aee7-dc2e633a4b95" time="1386668403688" ignored="false" />
+    <file path="/a.php" changelist="5b81e9f0-92b0-44c7-aee7-dc2e633a4b95" time="1386671371372" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,19 +49,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="25" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0">
+            <state line="15" column="46" selection-start="524" selection-end="524" vertical-scroll-proportion="0.3992016">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="user.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/modules/user/controllers/user.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="24" selection-start="3204" selection-end="3204" vertical-scroll-proportion="1.6387225">
+            <state line="91" column="24" selection-start="3204" selection-end="3204" vertical-scroll-proportion="-62.75862">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoload.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/config/autoload.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.689655">
               <folding />
             </state>
           </provider>
@@ -85,7 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/libraries/dto_category.php" />
         <option value="$PROJECT_DIR$/application/libraries/dto_image.php" />
         <option value="$PROJECT_DIR$/application/libraries/dto_product.php" />
         <option value="$PROJECT_DIR$/application/libraries/dto_role.php" />
@@ -101,6 +110,7 @@
         <option value="$PROJECT_DIR$/application/views/backend/left.php" />
         <option value="$PROJECT_DIR$/application/modules/user/controllers/user.php" />
         <option value="$PROJECT_DIR$/application/views/backend/header.php" />
+        <option value="$PROJECT_DIR$/application/config/config.php" />
       </list>
     </option>
   </component>
@@ -270,15 +280,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShopMobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ShopMobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="preferences.sourceCode.PHP" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -388,11 +420,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/libraries/dto_product.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="4" selection-start="1399" selection-end="1399" vertical-scroll-proportion="-10.137931" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/libraries/dto_role.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="4" selection-start="930" selection-end="930" vertical-scroll-proportion="-10.137931" />
@@ -455,13 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="25" selection-start="910" selection-end="910" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/backend/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -471,7 +491,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/user/controllers/user.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="24" selection-start="3204" selection-end="3204" vertical-scroll-proportion="1.6387225">
+        <state line="91" column="24" selection-start="3204" selection-end="3204" vertical-scroll-proportion="-62.75862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="20.689655">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="46" selection-start="524" selection-end="524" vertical-scroll-proportion="0.3992016">
           <folding />
         </state>
       </provider>
