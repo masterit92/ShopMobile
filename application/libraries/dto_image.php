@@ -4,17 +4,20 @@ class DTO_image{
     private $pro_id;
     private $url;
     private $status;
-    function setProperty($img_id, $pro_id, $url, $status) {
+    function set_property($img_id, $pro_id, $url, $status)
+    {
         $this->img_id = $img_id;
         $this->pro_id = $pro_id;
         $this->url = $url;
         $this->status = $status;
     }
-    public function getImg_id() {
+    public function getImg_id()
+    {
         return $this->img_id;
     }
 
-    public function setImg_id($img_id) {
+    public function setImg_id($img_id)
+    {
         $this->img_id = $img_id;
     }
 
@@ -22,23 +25,28 @@ class DTO_image{
         return $this->pro_id;
     }
 
-    public function setPro_id($pro_id) {
+    public function setPro_id($pro_id)
+    {
         $this->pro_id = $pro_id;
     }
 
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
     }
 
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 }

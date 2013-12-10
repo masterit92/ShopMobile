@@ -17,7 +17,6 @@ if (!$this->session->userdata("user_infor")) {
     <body> 
         <div class="wraper">
             <?php $this->load->view("backend/header"); ?> 
-
             <div class="container">
                 <?php $this->load->view("backend/left"); ?> 
                 <div class="container-right">
@@ -26,8 +25,6 @@ if (!$this->session->userdata("user_infor")) {
                     ?>  
                 </div>
             </div>
-
-
             <?php $this->load->view("backend/footer"); ?> 
         </div>
     </body> 

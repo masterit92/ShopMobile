@@ -1,9 +1,12 @@
 <?php
     class Render {
-        public function Render_css($arr_file_css,$template='fontend'){
-            if(count($arr_file_css)>0){
+        public function render_css($arr_file_css,$template='fontend')
+        {
+            if(count($arr_file_css)>0)
+            {
                 $html_string="";
-                foreach ($arr_file_css as $file_css) {
+                foreach ($arr_file_css as $file_css)
+                {
                     $html_string.='<link href="';
                     $html_string.=base_url();
                     $html_string.='public/';
