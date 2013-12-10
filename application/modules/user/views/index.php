@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php 
+    if($this->session->flashdata('login_error')){
+        $err=$this->session->flashdata('login_error');
+        echo "<script> alert('$err');</script>";
+    }
+?>
 <html>
     <head>
         <meta charset="UTF-8" />

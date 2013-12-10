@@ -33,6 +33,8 @@ class user extends CI_Controller {
                     $this->input->set_cookie('ck_password', $pass, (2 * 24 * 3600), '', '/', '', TRUE);
                 }
                 $flag = TRUE;
+            }else{
+                $this->session->set_flashdata('login_error', 'Username or password is not correct!');
             }
         }
         if (!$flag) {
@@ -47,10 +49,10 @@ class user extends CI_Controller {
     public function logout() {
         $this->session->sess_destroy();
         $this->session->unset_userdata('user_infor');
-        delete_cookie('ck_email'); 
-        delete_cookie('ck_password'); 
-        setcookie('ck_email', time() - 9600);
-        setcookie('ck_password', time() - 9600);
+        //delete_cookie('ck_email'); 
+        //delete_cookie('ck_password'); 
+        //setcookie('ck_email', time() - 9600);
+        //setcookie('ck_password', time() - 9600);
         $this->load->view("user/index");
     }
 
