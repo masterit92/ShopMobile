@@ -4,7 +4,6 @@ class Index extends CI_Controller {
     public function __construct ()
     {
         parent::__construct ();
-        $this->load->helper("url");
         $this->load->Model ( "m_users" );
         //$this->load->Model ( "dto_user" );
        // $this->load->helper ( 'cookie' );
@@ -22,7 +21,6 @@ class Index extends CI_Controller {
 //        }
         if ( $this->session->userdata ( "user_infor" ) )
         {
-           // var_dump($this->session->userdata ( "user_infor" ));die();
             $flag = TRUE;
         }
         if ( isset ( $_POST['tbnLogin'] ) )

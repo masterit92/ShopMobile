@@ -1,29 +1,29 @@
 <?php
-class User extends CI_Controller {
+class Role extends CI_Controller {
 
     protected $check_role = TRUE;
 
     public function __construct ()
     {
         parent::__construct ();
-        $this->load->Model ( "m_users" );
+        $this->load->Model ( "m_role" );
         if ( !$this->check () )
         {
             $this->check_role = FALSE;
             $temp['data']['error'] = FALSE;
             $temp['title'] = "User";
-            $temp['template'] = 'user/index';
+            $temp['template'] = 'role/index';
             $this->load->view ( "backend/layout", $temp );
         }
     }
 
-    public function list_user ()
+    public function list_role ()
     {
         if ( $this->check_role )
         {
-            $temp['data']["list_user"] = $this->m_users->get_all_user ();
-            $temp['title'] = "User";
-            $temp['template'] = 'user/index';
+            $temp['data']["list_role"] = $this->m_role->get_all_role ();
+            $temp['title'] = "Role";
+            $temp['template'] = 'role/index';
             $this->load->view ( "backend/layout", $temp );
         }
     }
@@ -33,7 +33,7 @@ class User extends CI_Controller {
         if ( $this->check_role )
         {
             $id = $this->input->get ( 'id' );
-            if ( $this->m_users->delete_user ( $id ) )
+            if ( $this->m_role->delete_role ( $id ) )
             {
                 $this->session->set_flashdata ( 'result', 'Delete Sucess!' );
             }
@@ -41,39 +41,19 @@ class User extends CI_Controller {
             {
                 $this->session->set_flashdata ( 'result', 'Delete Fail!' );
             }
-            redirect ( 'admin/user/list_user' );
+            redirect ( 'admin/role/list_role' );
         }
     }
 
-    public function edit_profile ()
+    public function edit ()
     {
         if ( $this->check_role )
         {
             $id = $this->input->get ( 'id' );
-            $temp["data"]['user'] = $this->m_users->get_user_by_id ( $id );
-            $temp['title'] = "User";
-            $temp['template'] = 'user/form_create';
+            $temp["data"]["role"] = $this->m_role->get_role_by_id ( $id );
+            $temp['title'] = "Role";
+            $temp['template'] = 'role/form';
             $this->load->view ( "backend/layout", $temp );
-        }
-    }
-
-    public function edit_status ()
-    {
-        if ( $this->check_role )
-        {
-            $id = $this->input->get ( 'id' );
-            $status = $this->input->get ( 'status' );
-            $user = new DTO_user();
-            $user->setStatus ( ($status == 1) ? 0 : 1  );
-            if ( $this->m_users->update_status ( $user, $id ) )
-            {
-                
-            }
-            else
-            {
-                
-            }
-            redirect ( 'admin/user/list_user' );
         }
     }
 
@@ -81,8 +61,8 @@ class User extends CI_Controller {
     {
         if ( $this->check_role )
         {
-            $temp['title'] = "User";
-            $temp['template'] = 'user/form_create';
+            $temp['title'] = "Role";
+            $temp['template'] = 'role/form';
             $this->load->view ( "backend/layout", $temp );
         }
     }
@@ -93,33 +73,24 @@ class User extends CI_Controller {
         {
             if ( isset ( $_POST['save'] ) )
             {
-                $user = new DTO_user();
-                $user->setFull_name($_POST['full_name']);
-                $user->setEmail($_POST['email']);
-                $user->setPassword($_POST['password']);
-                if ( isset ( $_POST['user_id'] ) )
+                $role = new DTO_role();
+                $role->setName ( $_POST['role_name'] );
+                $role->setStatus ( $_POST['status'] );
+                if ( isset ( $_POST['role_id'] ) )
                 {
-                    if ( $this->m_users->update_role ( $user, $_POST['role_id'] ) )
-                    {
+                    if($this->m_role->update_role($role,$_POST['role_id'])){
+                        
+                    }else{
                         
                     }
-                    else
-                    {
+                }else{
+                    if($this->m_role->insert_role($role)){
+                        
+                    }else{
                         
                     }
                 }
-                else
-                {
-                    if ( $this->m_users->insert_user ( $user ) )
-                    {
-                        
-                    }
-                    else
-                    {
-                        
-                    }
-                }
-                redirect ( 'admin/user/list_user' );
+                redirect ( 'admin/role/list_role' );
             }
         }
     }
@@ -141,4 +112,7 @@ class User extends CI_Controller {
             }
         }
     }
+
 }
+
+?>

@@ -66,7 +66,7 @@ $autoload['libraries'] = array("render","dto_user","dto_role_and_user","dto_role
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array();
+$autoload['helper'] = array("url");
 
 
 /*

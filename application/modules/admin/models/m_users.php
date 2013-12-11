@@ -1,5 +1,4 @@
 <?php
-
 class M_users extends My_database {
 
     private $table_name = "users";
@@ -73,11 +72,11 @@ class M_users extends My_database {
         return FALSE;
     }
 
-    public function insert_user ( $arr_data )
+    public function insert_user ( DTO_user $user )
     {
         try
         {
-            return $this->insert ( $this->table_name, $arr_data );
+            return $this->insert ( $this->table_name, $this->set_arr_data ( $user, "insert" ) );
         }
         catch ( Exception $ex )
         {
@@ -91,9 +90,8 @@ class M_users extends My_database {
         $user_id = $this->anti_sql ( $user_id );
         try
         {
-            $arr_where=array("User_id"=>$user_id);
+            $arr_where = array( "User_id" => $user_id );
             $list_user = $this->get_table ( $this->table_name, $arr_where );
-            $arr_user = array( );
             foreach ( $list_user as $value )
             {
                 return $this->set_value_profile ( $value );
@@ -106,12 +104,26 @@ class M_users extends My_database {
         return NULL;
     }
 
-    public function update_user ( $arr_data, $user_id )
+    public function update_user ( DTO_user $user, $user_id )
     {
         try
         {
             $arr_condition = array( "User_id" => $user_id );
-            return $this->update ( $this->table_name, $arr_condition, $arr_data );
+            return $this->update ( $this->table_name, $arr_condition, $this->set_arr_data ( $user, "profile" ) );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
+    public function update_status ( DTO_user $user, $user_id )
+    {
+        try
+        {
+            $arr_condition = array( "User_id" => $user_id );
+            return $this->update ( $this->table_name, $arr_condition, $this->set_arr_data ( $user, "status" ) );
         }
         catch ( Exception $ex )
         {
@@ -137,6 +149,26 @@ class M_users extends My_database {
             throw $ex;
         }
         return NULL;
+    }
+
+    //$active='profile' or password or status
+    protected function set_arr_data ( DTO_user $user, $action = 'profile' )
+    {
+        $arr_data = array( );
+        if ( $action === 'profile' OR $action === "insert" )
+        {
+            $arr_data["Email"] = $this->anti_sql ( $user->getEmail () );
+            $arr_data["Full_name"] = $this->anti_sql ( $user->getFull_name () );
+        }
+        else if ( $action === 'password' OR $action === "insert" )
+        {
+            $arr_data["Password"] = $this->anti_sql ( $user->getPassword () );
+        }
+        else if ( $action === 'status' )
+        {
+            $arr_data["Status"] = $this->anti_sql ( $user->getStatus () );
+        }
+        return $arr_data;
     }
 
 }

@@ -4,11 +4,11 @@
     <div class="container-menu-content">
         <div id='cssmenu'>
             <ul>
-                <li class='active '><a href='<?php base_url (); ?>index/home'><span>Home</span></a></li>
+                <li class='active '><a href='<?php echo base_url (); ?>admin/index/home'><span>Home</span></a></li>
                 <li class='has-sub '><a href='#'><span>User</span></a>
                     <ul>
-                        <li><a href='<?php base_url (); ?>user/list_user'><span>User</span></a></li>
-                        <li><a href='<?php base_url (); ?>user/list_role'><span>Role</span></a></li>
+                        <li><a href='<?php echo base_url (); ?>admin/user/list_user'><span>User</span></a></li>
+                        <li><a href='<?php echo base_url (); ?>admin/role/list_role'><span>Role</span></a></li>
                     </ul>
                 </li>
                 <li class='has-sub '><a href='#'><span>Product</span></a>
