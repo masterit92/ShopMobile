@@ -67,7 +67,7 @@ class M_category extends My_database {
 
     public function get_cat_by_id ( $cat_id, $isStatus = FALSE )
     {
-        $parent_id = $this->anti_sql ( $parent_id );
+        $cat_id = $this->anti_sql ( $cat_id );
         try
         {
             $arr_where = array( "Cat_id" => $cat_id );

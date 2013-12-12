@@ -19,29 +19,29 @@ else
         </thead>
         <tbody>
             <?php
-            $cate = new DTO_user();
-            foreach ( $data["list_user"] as $cate )
+            $user = new DTO_user();
+            foreach ( $data["list_user"] as $user )
             {
                 ?>
                 <tr>
-                    <td><?php echo $cate->getUser_id (); ?></td>
-                    <td><?php echo $cate->getEmail (); ?></td>
-                    <td><?php echo $cate->getFull_name (); ?></td>
+                    <td><?php echo $user->getUser_id (); ?></td>
+                    <td><?php echo $user->getEmail (); ?></td>
+                    <td><?php echo $user->getFull_name (); ?></td>
                     <td>
                         <?php
-                        if ( $cate->getStatus () > 0 )
+                        if ( $user->getStatus () > 0 )
                         {
-                            echo '<a href="'.base_url ('admin/user/edit_status?id=').$cate->getUser_id ().'&status='.$cate->getStatus ().'">Active</a>';
+                            echo '<a href="'.base_url ('admin/user/edit_status?id=').$user->getUser_id ().'&status='.$user->getStatus ().'">Active</a>';
                         }
                         else
                         {
-                            echo '<a href="'.base_url ('admin/user/edit_status?id=').$cate->getUser_id ().'">No Active</a>';
+                            echo '<a href="'.base_url ('admin/user/edit_status?id=').$user->getUser_id ().'">No Active</a>';
                         }
                         ?>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ("admin/authority/index?user_id=").$cate->getUser_id (); ?>">Authority</a>
-                        <a href="<?php echo base_url ('admin/user/delete?id=').$cate->getUser_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ("admin/authority/index?user_id=").$user->getUser_id (); ?>">Authority</a>
+                        <a href="<?php echo base_url ('admin/user/delete?id=').$user->getUser_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>
    <?php

@@ -18,16 +18,16 @@ else
         </thead>
         <tbody>
             <?php
-            $cate = new DTO_role();
-            foreach ( $data["list_role"] as $cate )
+            $pro = new DTO_role();
+            foreach ( $data["list_role"] as $pro )
             {
                 ?>
                 <tr>
-                    <td><?php echo $cate->getRole_id (); ?></td>
-                    <td><?php echo $cate->getName (); ?></td>
+                    <td><?php echo $pro->getRole_id (); ?></td>
+                    <td><?php echo $pro->getName (); ?></td>
                     <td>
                         <?php
-                        if ( $cate->getStatus () > 0 )
+                        if ( $pro->getStatus () > 0 )
                         {
                             echo 'Active';
                         }
@@ -38,8 +38,8 @@ else
                         ?>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ('admin/role/edit'); ?>?id=<?php echo $cate->getRole_id (); ?>">Edit</a>
-                        <a href="<?php echo base_url ('admin/role/delete'); ?>?id=<?php echo $cate->getRole_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ('admin/role/edit'); ?>?id=<?php echo $pro->getRole_id (); ?>">Edit</a>
+                        <a href="<?php echo base_url ('admin/role/delete'); ?>?id=<?php echo $pro->getRole_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>
                 <?php

@@ -19,22 +19,22 @@ else
             </thead>
             <tbody>
                 <?php
-                $cate = new DTO_role();
-                foreach ( $data["list_role"] as $cate )
+                $role = new DTO_role();
+                foreach ( $data["list_role"] as $role )
                 {
                     $check = NULL;
                     foreach ( $user_role as $value )
                     {
-                        if ( $value['Role_id'] === $cate->getRole_id () )
+                        if ( $value['Role_id'] === $role->getRole_id () )
                         {
                             $check = 'checked';
                         }
                     }
                ?>
                     <tr>
-                        <td><?php echo $cate->getName (); ?></td>
+                        <td><?php echo $role->getName (); ?></td>
                         <td>
-                            <input  type="checkbox" value="<?php echo $cate->getRole_id () ?>" name="check_role[]" <?php echo ($check!=NULL)? $check:''; ?>/>
+                            <input  type="checkbox" value="<?php echo $role->getRole_id () ?>" name="check_role[]" <?php echo ($check!=NULL)? $check:''; ?>/>
                         </td>
                     </tr>
                     <?php

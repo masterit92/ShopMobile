@@ -7,8 +7,19 @@ class DTO_product {
     private $description;
     private $quantity;
     private $status;
+    private $thumb;
 
-    function set_property ( $pro_id, $name, $price, $description, $quantity, $status )
+    public function getThumb ()
+    {
+        return $this->thumb;
+    }
+
+    public function setThumb ( $thumb )
+    {
+        $this->thumb = $thumb;
+    }
+
+    function set_property ( $pro_id, $name, $price, $description, $quantity, $status ,$thumb)
     {
         $this->pro_id = $pro_id;
         $this->name = $name;
@@ -16,6 +27,7 @@ class DTO_product {
         $this->description = $description;
         $this->quantity = $quantity;
         $this->status = $status;
+        $this->thumb=$thumb;
     }
 
     public function getPro_id ()
