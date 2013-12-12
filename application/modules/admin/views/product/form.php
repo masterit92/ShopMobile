@@ -8,12 +8,13 @@ if ( isset ( $data['pro'] ) )
 ?>
 <div id="content">
     <h1>Form Product</h1>
-    <form action="<?php echo base_url ( 'admin/product/save' ) ?>" method="post">
+    <form action="<?php echo base_url ( 'admin/product/save' ) ?>" method="post" enctype="multipart/form-data" >
         <?php
         if ( isset ( $pro ) )
         {
             ?>
         <input type="hidden" name="pro_id" value="<?php echo $pro->getPro_id (); ?>"/>
+        <input type="hidden" name="img_old" value="<?php echo $pro->getThumb (); ?>"/>
         <?php } ?>
         <p><strong>Note:</strong> Items marked <span class="required">*</span> are required fields</p>
         <fieldset id="personal">
@@ -24,7 +25,7 @@ if ( isset ( $data['pro'] ) )
                 </li>
                 <li><label for="forename" title="Enter your forename" class="">Thumb<span>*</span></label>
                    <?php echo isset ( $pro ) ? '<img src='.  base_url ($pro->getThumb ()).' width="100" height="100"/>' : '' ?>
-                    <input name="thumb" type="file" id="thumb"  placeholder="Thumb" />
+                    <input name="thumb"  type="file" id="thumb"  placeholder="Thumb" />
                 </li>
                 <li><label for="forename" title="Enter your forename" class="required">Price<span>*</span></label>
                     <input name="price" type="text" id="price" value="<?php echo isset ( $pro ) ? $pro->getPrice () : '' ?>" placeholder="Price" />	

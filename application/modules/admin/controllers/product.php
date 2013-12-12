@@ -93,34 +93,42 @@ class Product extends CI_Controller {
     {
         if ( $this->check_role )
         {
+
             if ( isset ( $_POST['save'] ) )
             {
-                $pro = new DTO_product();
-                isset ( $_POST['cat_name'] ) ? $pro->setName ( $_POST['cat_name'] ) : NULL;
-                isset ( $_POST['parent_id'] ) ? $pro->setParent_id ( $_POST['parent_id'] ) : $pro->setParent_id ( 0 );
-                if ( isset ( $_POST['cat_id'] ) )
+                $dto_pro = new DTO_product();
+                $dto_pro->setName ( $_POST['pro_name'] );
+                $dto_pro->setThumb ( $this->upload_img ( 'thumb' ) );
+                $dto_pro->setPrice ( $_POST['price'] );
+                $dto_pro->setDescription ( $_POST['description'] );
+                $dto_pro->setQuantity ( $_POST['quantity'] );
+                if ( $dto_pro->getThumb () != NULL )
                 {
-                    if ( $this->m_category->update_cat ( $pro, $_POST['cat_id'] ) )
+                    unlink($_POST['img_old']);
+                }
+                if ( isset ( $_POST['pro_id'] ) )
+                {
+                    if ( $this->m_product->update_pro ( $dto_pro, $_POST['pro_id'] ) )
                     {
                         //success
                     }
                     else
                     {
-                        //fail
+                        //error
                     }
                 }
                 else
                 {
-                    if ( $this->m_category->insert_cat ( $pro ) )
+                    if ( $this->m_product->insert_pro ( $dto_pro ) )
                     {
                         //success
                     }
                     else
                     {
-                        //fail
+                        //error
                     }
                 }
-                redirect ( 'admin/category/list_category' );
+                redirect ( 'admin/product/list_product' );
             }
         }
     }
@@ -140,6 +148,30 @@ class Product extends CI_Controller {
 
             return $result;
         }
+    }
+
+    protected function upload_img ( $filed_name )
+    {
+        //Upload
+        $path = realpath ( 'public/backend/images' );
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '2048';
+        $config['encrypt_name'] = FALSE;
+        $this->load->library ( 'upload', $config );
+        $this->upload->initialize ( $config );
+        $url_img = 'public/backend/images/' . $_FILES[$filed_name]['name'];
+        if ( file_exists ( $url_img ) )
+        {
+            $_FILES[$filed_name]['name'] = rand ( 1000, 10000 ) . "_" . $_FILES[$filed_name]['name'];
+            $url_img = 'public/backend/images/' . $_FILES[$filed_name]['name'];
+        }
+        $check_upload = $this->upload->do_upload ( $filed_name );
+        if ( $check_upload )
+        {
+            return $url_img;
+        }
+        return NULL;
     }
 
 }

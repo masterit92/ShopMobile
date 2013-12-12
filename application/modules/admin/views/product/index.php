@@ -27,7 +27,9 @@ else
                 <tr>
                     <td><?php echo $pro->getPro_id (); ?></td>
                     <td><?php echo $pro->getName (); ?></td>
-                    <td><?php echo $pro->getThumb (); ?></td>
+                    <td>
+                        <img src=" <?php echo base_url($pro->getThumb ()); ?>" width="100" height="100"/>
+                    </td>
                     <td><?php echo $pro->getQuantity (); ?></td>
                     <td>
                         <a href="<?php echo base_url ( 'admin/product/edit_status?id=' ) . $pro->getPro_id () . '&status=' . $pro->getStatus () ?>"> 
@@ -35,8 +37,9 @@ else
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ( 'admin/category/list_category' ); ?>?id=<?php echo $pro->getPro_id (); ?>">Category</a>
-                        <a href="<?php echo base_url ( 'admin/product/edit' ); ?>?id=<?php echo $pro->getPro_id (); ?>">Edit</a>
+                        <a href="<?php echo base_url ( 'admin/category/list_category' ); ?>?id=<?php echo $pro->getPro_id (); ?>">View Image</a> | 
+                        <a href="<?php echo base_url ( 'admin/category/list_category?action=checkbox&' ); ?>?pro_id=<?php echo $pro->getPro_id (); ?>">Category</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/edit' ); ?>?id=<?php echo $pro->getPro_id (); ?>">Edit</a> | 
                         <a href="<?php echo base_url ( 'admin/product/delete' ); ?>?id=<?php echo $pro->getPro_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>

@@ -84,7 +84,7 @@ class Authority extends CI_Controller {
         {
             foreach ( $this->session->userdata ( "user_role" ) as $roles )
             {
-                if ( in_array ( 'admin', $roles ) OR in_array ( $this->uri->segment ( 1 ), $roles ) )
+                if ( in_array ( 'admin', $roles ) OR in_array ( 'user', $roles ) )
                 {
                     return TRUE;
                 }

@@ -22,10 +22,22 @@ class Category extends CI_Controller {
     {
         if ( $this->check_role )
         {
-            $temp['data']['list_cat'] = $this->m_category->get_cat_by_parent_id ( 0 );
+            $temp['data']['list_cat'] = $this->m_category->get_all_category();
             $temp['title'] = "Category";
             $temp['template'] = 'category/index';
             $this->load->view ( "backend/layout", $temp );
+        }
+    }
+    
+    public function list_cate_parent ()
+    {
+        if ( $this->check_role )
+        {
+            $temp['data']['list_cat'] = $this->m_category->get_cat_by_parent_id ( 0 );
+            $temp['data']['list_cat_parent'] = $this->m_category->get_cat_by_parent_id ( $this->input->get ( 'cat_id' ) );
+            $temp['title'] = "Category";
+            $temp['template'] = '';
+            $this->load->view ( "category/index", $temp );
         }
     }
 

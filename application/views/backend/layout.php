@@ -10,7 +10,9 @@ if ( !$this->session->userdata ( "user_infor" ) )
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <?php
         $arr_file_css = array( "style_admin.css", "table.css", "menu_left.css" ,"form.css","treeview.css" );
+        $arr_file_js=array("jquery-1.10.2.js");
         echo $this->render->Render_css ( $arr_file_css, 'backend' );
+        echo $this->render->Render_js ( $arr_file_js, 'backend' );
         ?> 
         <title><?php echo $title; ?></title> 
     </head> 

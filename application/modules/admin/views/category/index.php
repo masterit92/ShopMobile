@@ -6,77 +6,45 @@ if ( isset ( $data["error"] ) && !$data['error'] )
 else
 {
     ?>
+    <script>
+        $(function() {
+            $(".cat_click").click(function() {
+                var catID = $(this).attr('cat_id');
+                var url = '<?php echo base_url ( "admin/category/list_cate_parent?cat_id=" ); ?>' + catID;
 
-    <div class="css-treeview">
-        <h1>Manager Category</h1>
-        <ul>
-            <?php
+                $("#load_cat").load(url);
+            });
+        });
+    </script>
+    <div class="">
+        <?php
+        $menus = $data['list_cat'];
+
+        function show_menu ( $menus = array( ), $parrent = 0 )
+        {
             $dto_cat = new DTO_category();
-            $i = 0;
-            foreach ( $data['list_cat'] as $dto_cat )
+            foreach ( $menus as $dto_cat )
             {
-                ?>
-                <li><input type="checkbox" id="item-<?php echo $i ?>" /><label for="item-<?php echo $i ?>"><?php echo $dto_cat->getName () ?> 
-                        <a href="<?php echo base_url ('admin/category/edit_status?id=').$dto_cat->getCat_id ().'&status='.$dto_cat->getStatus ()?>">
-                            <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
-                        </a> | 
-                        <a href="<?php echo base_url ('admin/category/edit?id=').$dto_cat->getCat_id ()?>">Edit</a>
-                    </label>
+                echo '<ul>';
+                if ( $dto_cat->getParent_id () == $parrent )
+                {
+                    echo "<li>" . $dto_cat->getName ();
+                    ?>
+                    <a href="<?php echo base_url ( 'admin/category/edit_status?id=' ) . $dto_cat->getCat_id () . '&status=' . $dto_cat->getStatus () ?>">
+                        <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
+                    </a> |
+                    <a href="<?php echo base_url ( 'admin/category/edit?id=' ) . $dto_cat->getCat_id () ?>">Edit</a> | 
+                    <a href="<?php echo base_url ( 'admin/category/delete?id=' ) . $dto_cat->getCat_id () ?>" onclick="return confirm('I want delete?')">Delete</a>
                     <?php
-                    if ( count ( $this->m_category->get_cat_by_parent_id ( $dto_cat->getCat_id () ) ) )
-                    {
-                        echo "<ul>";
-                        $j = 0;
-                        foreach ( $this->m_category->get_cat_by_parent_id ( $dto_cat->getCat_id () ) as $dto_cat )
-                        {
-                            ?>
-
-                        <li><input type="checkbox" id="item-<?php echo $i . '-' . $j ?>" /><label for="item-<?php echo $i . '-' . $j ?>"><?php echo $dto_cat->getName () ?>
-                                <a href="<?php echo base_url ('admin/category/edit_status?id=').$dto_cat->getCat_id ().'&status='.$dto_cat->getStatus ()?>">
-                                    <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
-                                </a> |    
-                                <a href="<?php echo base_url ('admin/category/edit?id=').$dto_cat->getCat_id ()?>">Edit</a> | 
-                                <a href="<?php echo base_url ('admin/category/delete?id=').$dto_cat->getCat_id ()?>" onclick="return confirm('I want delete?')">Delete</a>
-                            </label>
-                            <?php
-                            if ( count ( $this->m_category->get_cat_by_parent_id ( $dto_cat->getCat_id () ) ) )
-                            {
-                                echo "<ul>";
-                                $k = 0;
-                                foreach ( $this->m_category->get_cat_by_parent_id ( $dto_cat->getCat_id () ) as $dto_cat )
-                                {
-                                    ?>
-
-                                <li><input type="checkbox" id="item-<?php echo $i . '-' . $j . '-' . $k ?>" /><label for="item-<?php echo $i . '-' . $j . '-' . $k ?>"><?php echo $dto_cat->getName () ?>
-                                        <a href="<?php echo base_url ('admin/category/edit_status?id=').$dto_cat->getCat_id ().'&status='.$dto_cat->getStatus ()?>">
-                                            <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
-                                        </a> |
-                                        <a href="<?php echo base_url ('admin/category/edit?id=').$dto_cat->getCat_id ()?>">Edit</a> | 
-                                        <a href="<?php echo base_url ('admin/category/delete?id=').$dto_cat->getCat_id ()?>" onclick="return confirm('I want delete?')">Delete</a>
-                                    </label>
-
-                                </li>
-                                <?php
-                                $k++;
-                            }
-                            echo "</ul> ";
-                        }
-                        ?>
-                        </li>
-                        <?php
-                        $j++;
-                    }
-                    echo "</ul> ";
+                    show_menu ( $menus, $dto_cat->getCat_id () );
+                    echo '</li>';
                 }
-                ?>
-                </li>
-                <?php
-                $i++;
+                echo '</ul>';
             }
-            ?>
-        </ul>
-        <br/>
-        <a href="<?php echo base_url ('admin/category/create')?>">Add New</a>
+        }
+
+        show_menu ( $menus );
+        ?>
     </div>
     <?php
 }?>

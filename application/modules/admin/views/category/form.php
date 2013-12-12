@@ -1,5 +1,4 @@
 <?php
-$cate_pr= 1;
 if ( isset ( $data['cat'] ) )
 {
     $cat = new DTO_category();
@@ -13,7 +12,6 @@ if ( isset ( $data['cat'] ) )
         if ( isset ( $cat ) )
         {
             $cat_id_current = $cat->getCat_id ();
-            $cate_pr=$cat->getParent_id ()
             ?>
             <input type="hidden" name="cat_id" value="<?php echo $cat->getCat_id (); ?>"/>
         <?php } ?>
@@ -24,33 +22,34 @@ if ( isset ( $data['cat'] ) )
                 <li><label for="forename" title="Enter your forename" class="required">Role Name<span>*</span></label>
                     <input name="cat_name" type="text" id="cat_name" value="<?php echo isset ( $cat ) ? $cat->getName () : '' ?>" placeholder="Category Name" />	
                 </li>
-                <?php
-                if (  $cate_pr!= 0 )
-                {
-                    ?>
-                    <li><label for="forename" title="Enter your forename" class="required">Parent Category<span>*</span></label>
-                        <select name="parent_id">
-                            <option value="0">Root</option>
-                            <?php
-                            foreach ( $this->m_category->get_cat_by_parent_id ( 0 ) as $cate1 )
+                <li><label for="forename" title="Enter your forename" class="required">Parent Category<span>*</span></label>
+                    <select name="parent_id">
+                        <option value="0">Root</option>
+                        <?php
+                        $menus = $this->m_category->get_all_category ();
+
+                        function show_menu ( $menus = array( ), $parrent = 0 )
+                        {
+                            $gach='';
+                            $dto_cat = new DTO_category();
+                            foreach ( $menus as $dto_cat )
                             {
-                                ?>
-                                <option value="<?php echo $cate1->getCat_id () ?>"><?php echo $cate1->getName () ?></option>
-                                <?php
-                                foreach ( $this->m_category->get_cat_by_parent_id ( $cate1->getCat_id () ) as $cate2 )
+                                if ( $dto_cat->getParent_id () == $parrent )
                                 {
-                                    if ( $cat_id_current != $cate2->getCat_id () )
-                                    {
-                                        ?>
-                                        <option value="<?php echo $cate2->getCat_id () ?>">&nbsp;&nbsp;&nbsp;<?php echo $cate2->getName () ?></option>
-                                        <?php
-                                    }
+                                    $gach.='--';
+                                    $dto_cat->setName ($gach.$dto_cat->getName () );
+                                    echo "<option>" . $dto_cat->getName ();
+                                    show_menu ( $menus, $dto_cat->getCat_id () );
+                                    echo '</option>';
                                 }
                             }
-                            ?>
-                        </select>	
-                    </li>
-<?php } ?>
+                        }
+
+                        show_menu ( $menus );
+                        ?>
+                    </select>	
+                </li>
+
             </ol>
         </fieldset>
         <fieldset id="submitform">

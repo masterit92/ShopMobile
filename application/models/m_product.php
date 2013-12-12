@@ -124,10 +124,14 @@ class M_product extends My_database {
         if ( $action === 'update' OR $action === "insert" )
         {
             $arr_data["Name"] = $this->anti_sql ( $pro->getName () );
+            if ( $pro->getThumb () != NULL )
+            {
+                $arr_data["Thumb"] = $this->anti_sql ( $pro->getThumb () );
+            }
             $arr_data["Price"] = $this->anti_sql ( $pro->getPrice () );
             $arr_data["Description"] = $this->anti_sql ( $pro->getDescription () );
-            $arr_data["Quantity"] = $this->anti_sql ( $pro->getDescription () );
-            $arr_data["Thumb"] = $this->anti_sql ( $pro->getThumb () );
+            $arr_data["Quantity"] = $this->anti_sql ( $pro->getQuantity () );
+            
         }
         else if ( $action === 'status' )
         {
