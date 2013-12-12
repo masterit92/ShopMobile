@@ -37,10 +37,10 @@ else
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ( 'admin/category/list_category' ); ?>?id=<?php echo $pro->getPro_id (); ?>">View Image</a> | 
-                        <a href="<?php echo base_url ( 'admin/category/list_category?action=checkbox&' ); ?>?pro_id=<?php echo $pro->getPro_id (); ?>">Category</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/edit' ); ?>?id=<?php echo $pro->getPro_id (); ?>">Edit</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/delete' ); ?>?id=<?php echo $pro->getPro_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ( 'admin/product/view_image?pro_id='.$pro->getPro_id ()); ?>">Image</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/set_category_product?pro_id='.$pro->getPro_id () ); ?>">Category</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/edit?id='.$pro->getPro_id () ); ?>">Edit</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/delete?id='. $pro->getPro_id () ); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>
                 <?php

@@ -11,7 +11,6 @@ if ( isset ( $data['cat'] ) )
         <?php
         if ( isset ( $cat ) )
         {
-            $cat_id_current = $cat->getCat_id ();
             ?>
             <input type="hidden" name="cat_id" value="<?php echo $cat->getCat_id (); ?>"/>
         <?php } ?>
@@ -28,21 +27,32 @@ if ( isset ( $data['cat'] ) )
                         <?php
                         $menus = $this->m_category->get_all_category ();
 
-                        function show_menu ( $menus = array( ), $parrent = 0 )
+                        function show_menu ( $menus = array( ), $parrent = 0, $gach = " " )
                         {
-                            $gach='';
                             $dto_cat = new DTO_category();
+                            $parent_old = 0;
                             foreach ( $menus as $dto_cat )
                             {
+                                
                                 if ( $dto_cat->getParent_id () == $parrent )
                                 {
-                                    $gach.='--';
-                                    $dto_cat->setName ($gach.$dto_cat->getName () );
-                                    echo "<option>" . $dto_cat->getName ();
-                                    show_menu ( $menus, $dto_cat->getCat_id () );
+                                    if ( $dto_cat->getParent_id () == 0 )
+                                        $gach = "- ";
+                                    echo "<option>" . $gach . $dto_cat->getName ();
                                     echo '</option>';
+                                    
+                                    show_menu ( $menus, $dto_cat->getCat_id (), $gach );
+                                    
+                                    if ( $parent_old != $dto_cat->getParent_id () )
+                                    {
+                                        $gach.='---  ';
+                                    }
+                                    $parent_old = $dto_cat->getParent_id ();
                                 }
                             }
+
+
+                            //return $arr;
                         }
 
                         show_menu ( $menus );

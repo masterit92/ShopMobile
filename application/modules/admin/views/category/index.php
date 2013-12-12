@@ -6,16 +6,6 @@ if ( isset ( $data["error"] ) && !$data['error'] )
 else
 {
     ?>
-    <script>
-        $(function() {
-            $(".cat_click").click(function() {
-                var catID = $(this).attr('cat_id');
-                var url = '<?php echo base_url ( "admin/category/list_cate_parent?cat_id=" ); ?>' + catID;
-
-                $("#load_cat").load(url);
-            });
-        });
-    </script>
     <div class="">
         <?php
         $menus = $data['list_cat'];
@@ -31,20 +21,21 @@ else
                     echo "<li>" . $dto_cat->getName ();
                     ?>
                     <a href="<?php echo base_url ( 'admin/category/edit_status?id=' ) . $dto_cat->getCat_id () . '&status=' . $dto_cat->getStatus () ?>">
-                        <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
+                    <?php echo ($dto_cat->getStatus () == 1) ? 'Active' : 'No Active' ?>
                     </a> |
                     <a href="<?php echo base_url ( 'admin/category/edit?id=' ) . $dto_cat->getCat_id () ?>">Edit</a> | 
                     <a href="<?php echo base_url ( 'admin/category/delete?id=' ) . $dto_cat->getCat_id () ?>" onclick="return confirm('I want delete?')">Delete</a>
-                    <?php
-                    show_menu ( $menus, $dto_cat->getCat_id () );
-                    echo '</li>';
-                }
-                echo '</ul>';
+                <?php
+                show_menu ( $menus, $dto_cat->getCat_id () );
+                echo '</li>';
             }
+            echo '</ul>';
         }
+    }
 
-        show_menu ( $menus );
-        ?>
+    show_menu ( $menus );
+    ?>
     </div>
-    <?php
-}?>
+    <a href="<?php echo base_url ( 'admin/category/create' ) ?>">Add New</a>
+        <?php
+    }?>

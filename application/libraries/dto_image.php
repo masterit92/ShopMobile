@@ -4,14 +4,12 @@ class DTO_image {
     private $img_id;
     private $pro_id;
     private $url;
-    private $status;
 
-    function set_property ( $img_id, $pro_id, $url, $status )
+    function set_property ( $img_id, $pro_id, $url )
     {
         $this->img_id = $img_id;
         $this->pro_id = $pro_id;
         $this->url = $url;
-        $this->status = $status;
     }
 
     public function getImg_id ()
@@ -42,16 +40,6 @@ class DTO_image {
     public function setUrl ( $url )
     {
         $this->url = $url;
-    }
-
-    public function getStatus ()
-    {
-        return $this->status;
-    }
-
-    public function setStatus ( $status )
-    {
-        $this->status = $status;
     }
 
 }

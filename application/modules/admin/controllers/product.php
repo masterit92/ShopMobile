@@ -1,4 +1,5 @@
 <?php
+
 class Product extends CI_Controller {
 
     protected $check_role = TRUE;
@@ -7,6 +8,7 @@ class Product extends CI_Controller {
     {
         parent::__construct ();
         $this->load->Model ( 'm_product' );
+        $this->load->Model ( 'm_category' );
         if ( !$this->check () )
         {
             $this->check_role = FALSE;
@@ -83,7 +85,7 @@ class Product extends CI_Controller {
     {
         if ( $this->check_role )
         {
-            $temp['title'] = "Category";
+            $temp['title'] = "Product";
             $temp['template'] = 'product/form';
             $this->load->view ( "backend/layout", $temp );
         }
@@ -104,7 +106,7 @@ class Product extends CI_Controller {
                 $dto_pro->setQuantity ( $_POST['quantity'] );
                 if ( $dto_pro->getThumb () != NULL )
                 {
-                    unlink($_POST['img_old']);
+                    unlink ( $_POST['img_old'] );
                 }
                 if ( isset ( $_POST['pro_id'] ) )
                 {
@@ -130,6 +132,92 @@ class Product extends CI_Controller {
                 }
                 redirect ( 'admin/product/list_product' );
             }
+        }
+    }
+
+    public function set_category_product ()
+    {
+        if ( $this->check_role )
+        {
+            if ( isset ( $_POST['pro_cat'] ) )
+            {
+                $arr_cat_check = $_POST['cb_cat_id'];
+                $pro_id = $_POST['pro_id'];
+                $arr_cat_id = array( );
+                $dto_cat_pro = new DTO_cat_and_pro();
+                foreach ( $this->m_product->get_cat_by_pro_id ( $pro_id ) as $dto_cat_pro )
+                {
+                    if ( !in_array ( $dto_cat_pro->getCat_id (), $arr_cat_id ) )
+                    {
+                        if ( $this->m_product->delete_cat_pro ( $pro_id, $dto_cat_pro->getCat_id () ) )
+                        {
+                            //success
+                        }
+                        else
+                        {
+                            //error
+                        }
+                    }
+                }
+                foreach ( $arr_cat_check as $cat_id )
+                {
+                    if ( !$this->m_product->check_cat_pro ( $pro_id, $cat_id ) )
+                    {
+                        $dto_cat = new DTO_cat_and_pro();
+                        $dto_cat->setPro_id ( $pro_id );
+                        $dto_cat->setCat_id ( $cat_id );
+                        if ( $this->m_product->insert_cat_pro ( $dto_cat ) )
+                        {
+                            //success
+                        }
+                        else
+                        {
+                            //error
+                        }
+                    }
+                }
+            }
+            $temp['title'] = "Product";
+            if ( isset ( $pro_id ) )
+            {
+                $temp['data']['pro_id'] = $pro_id;
+            }
+            $temp['template'] = "product/list_cat";
+            $this->load->view ( "backend/layout", $temp );
+        }
+    }
+
+    public function view_image ()
+    {
+        if ( $this->check_role )
+        {
+            if ( isset ( $_GET['pro_id'] ) )
+            {
+                $pro_id = $_GET['pro_id'];
+                $temp['data']['list_img'] = $this->m_product->get_img_by_pro_id ( $pro_id );
+            }
+            $temp['title'] = "Image";
+            $temp['template'] = "product/list_image";
+            $this->load->view ( "backend/layout", $temp );
+        }
+    }
+
+    public function delete_image ()
+    {
+        if ( $this->check_role )
+        {
+            if(isset($_GET['img_id'])){
+                $img_id= $_GET['img_id'];
+                $dto_img= new DTO_image();
+                $dto_img= $this->m_product->get_img_by_id($img_id);
+                if($this->m_product->delete_img($img_id)){
+                    //success
+                    unlink($dto_img->getUrl());
+                }else{
+                    //errror
+                }
+            }
+             redirect ( 'admin/product/view_image?pro_id='.$_GET['pro_id'] );
         }
     }
 
