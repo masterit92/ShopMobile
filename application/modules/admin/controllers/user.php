@@ -1,4 +1,5 @@
 <?php
+
 class User extends CI_Controller {
 
     protected $check_role = TRUE;
@@ -35,11 +36,13 @@ class User extends CI_Controller {
             $id = $this->input->get ( 'id' );
             if ( $this->m_users->delete_user ( $id ) )
             {
-                $this->session->set_flashdata ( 'result', 'Delete Sucess!' );
+                //success
+                //$this->session->set_flashdata ( 'result', 'Delete Sucess!' );
             }
             else
             {
-                $this->session->set_flashdata ( 'result', 'Delete Fail!' );
+                //fail
+                //$this->session->set_flashdata ( 'result', 'Delete Fail!' );
             }
             redirect ( 'admin/user/list_user' );
         }
@@ -52,7 +55,7 @@ class User extends CI_Controller {
             $id = $this->input->get ( 'id' );
             $temp["data"]['user'] = $this->m_users->get_user_by_id ( $id );
             $temp['title'] = "User";
-            $temp['template'] = 'user/form_create';
+            $temp['template'] = 'user/form_profile';
             $this->load->view ( "backend/layout", $temp );
         }
     }
@@ -67,11 +70,11 @@ class User extends CI_Controller {
             $user->setStatus ( ($status == 1) ? 0 : 1  );
             if ( $this->m_users->update_status ( $user, $id ) )
             {
-                
+                //success
             }
             else
             {
-                
+                //error
             }
             redirect ( 'admin/user/list_user' );
         }
@@ -87,6 +90,16 @@ class User extends CI_Controller {
         }
     }
 
+    public function changer_pass ()
+    {
+        if ( $this->check_role )
+        {
+            $temp['title'] = "User";
+            $temp['template'] = 'user/form_changer';
+            $this->load->view ( "backend/layout", $temp );
+        }
+    }
+
     public function save ()
     {
         if ( $this->check_role )
@@ -94,29 +107,43 @@ class User extends CI_Controller {
             if ( isset ( $_POST['save'] ) )
             {
                 $user = new DTO_user();
-                $user->setFull_name($_POST['full_name']);
-                $user->setEmail($_POST['email']);
-                $user->setPassword($_POST['password']);
+                isset ( $_POST['full_name'] ) ? $user->setFull_name ( $_POST['full_name'] ) : NULL;
+                isset ( $_POST['email'] ) ? $user->setEmail ( $_POST['email'] ) : NULL;
+                isset ( $_POST['password'] ) ? $user->setPassword ( $_POST['password'] ) : NULL;
                 if ( isset ( $_POST['user_id'] ) )
                 {
-                    if ( $this->m_users->update_role ( $user, $_POST['role_id'] ) )
+                    if ( isset ( $_POST['full_name'] ) )
                     {
-                        
+                        if ( $this->m_users->update_user ( $user, $_POST['user_id'] ) )
+                        {
+                            //success
+                        }
+                        else
+                        {
+                            //fail
+                        }
                     }
-                    else
+                    else if ( isset ( $_POST['password'] ) )
                     {
-                        
+                        if ( $this->m_users->changer_pass ( $user, $_POST['user_id'] ) )
+                        {
+                            //success
+                        }
+                        else
+                        {
+                            //fail
+                        }
                     }
                 }
                 else
                 {
                     if ( $this->m_users->insert_user ( $user ) )
                     {
-                        
+                        //success
                     }
                     else
                     {
-                        
+                        //fail
                     }
                 }
                 redirect ( 'admin/user/list_user' );
@@ -128,17 +155,17 @@ class User extends CI_Controller {
     {
         if ( $this->session->userdata ( "user_role" ) && $this->session->userdata ( "user_infor" ) )
         {
+            $result = FALSE;
             foreach ( $this->session->userdata ( "user_role" ) as $roles )
             {
-                if ( in_array ( 'admin', $roles ) OR in_array ( $this->uri->segment ( 1 ), $roles ) )
+                if ( in_array ( 'admin', $roles ) OR in_array ( 'user', $roles ) )
                 {
-                    return TRUE;
-                }
-                else
-                {
-                    return FALSE;
+                    $result = TRUE;
                 }
             }
+
+            return $result;
         }
     }
+
 }

@@ -35,11 +35,13 @@ class Role extends CI_Controller {
             $id = $this->input->get ( 'id' );
             if ( $this->m_role->delete_role ( $id ) )
             {
-                $this->session->set_flashdata ( 'result', 'Delete Sucess!' );
+                //success
+                //$this->session->set_flashdata ( 'result', 'Delete Sucess!' );
             }
             else
             {
-                $this->session->set_flashdata ( 'result', 'Delete Fail!' );
+                //fail
+                //$this->session->set_flashdata ( 'result', 'Delete Fail!' );
             }
             redirect ( 'admin/role/list_role' );
         }
@@ -79,15 +81,15 @@ class Role extends CI_Controller {
                 if ( isset ( $_POST['role_id'] ) )
                 {
                     if($this->m_role->update_role($role,$_POST['role_id'])){
-                        
+                        //success
                     }else{
-                        
+                        //error
                     }
                 }else{
                     if($this->m_role->insert_role($role)){
-                        
+                        //success
                     }else{
-                        
+                        //error
                     }
                 }
                 redirect ( 'admin/role/list_role' );

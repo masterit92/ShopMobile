@@ -9,7 +9,7 @@ if ( !$this->session->userdata ( "user_infor" ) )
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <?php
-        $arr_file_css = array( "style_admin.css", "table.css", "menu_left.css" ,"form.css" );
+        $arr_file_css = array( "style_admin.css", "table.css", "menu_left.css" ,"form.css","treeview.css" );
         echo $this->render->Render_css ( $arr_file_css, 'backend' );
         ?> 
         <title><?php echo $title; ?></title> 

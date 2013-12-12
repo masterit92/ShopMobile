@@ -215,7 +215,7 @@ class My_database extends CI_Model {
 
     public function anti_sql ( $value )
     {
-        $value = strtolower ( $value );
+        //$value = strtolower ( $value );
         $arr_key = array( '--', 'jav&#x0A;ascript:', 'jav&#x0D;ascript:', 'jav&#x09;ascript:', '<!-', '<', '>',
             '%3C', '&lt', '&lt;', '&LT', '&LT;', '&#60', '&#060', '&#0060', '&#00060', '&#000060',
             '&#0000060', '&#60;', '&#060;', '&#0060;', '&#00060;', '&#000060;', '&#0000060;', '&#x3c',

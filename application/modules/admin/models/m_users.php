@@ -1,4 +1,5 @@
 <?php
+
 class M_users extends My_database {
 
     private $table_name = "users";
@@ -74,13 +75,16 @@ class M_users extends My_database {
 
     public function insert_user ( DTO_user $user )
     {
-        try
+        if ( !$this->check_email ( $user->getEmail () ) )
         {
-            return $this->insert ( $this->table_name, $this->set_arr_data ( $user, "insert" ) );
-        }
-        catch ( Exception $ex )
-        {
-            throw $ex;
+            try
+            {
+                return $this->insert ( $this->table_name, $this->set_arr_data ( $user, "insert" ) );
+            }
+            catch ( Exception $ex )
+            {
+                throw $ex;
+            }
         }
         return FALSE;
     }
@@ -132,6 +136,20 @@ class M_users extends My_database {
         return FALSE;
     }
 
+    public function changer_pass ( DTO_user $user, $user_id )
+    {
+        try
+        {
+            $arr_condition = array( "User_id" => $user_id );
+            return $this->update ( $this->table_name, $arr_condition, $this->set_arr_data ( $user, "password" ) );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
     public function check_role ( $user_id )
     {
         try
@@ -151,22 +169,44 @@ class M_users extends My_database {
         return NULL;
     }
 
+    public function check_email ( $email )
+    {
+        $email = $this->anti_sql ( $email );
+        try
+        {
+            $arr_where = array( "Email" => $email );
+            $list_user = $this->get_table ( $this->table_name, $arr_where );
+            foreach ( $list_user as $value )
+            {
+                return TRUE;
+            }
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
     //$active='profile' or password or status
     protected function set_arr_data ( DTO_user $user, $action = 'profile' )
     {
         $arr_data = array( );
         if ( $action === 'profile' OR $action === "insert" )
         {
-            $arr_data["Email"] = $this->anti_sql ( $user->getEmail () );
             $arr_data["Full_name"] = $this->anti_sql ( $user->getFull_name () );
         }
-        else if ( $action === 'password' OR $action === "insert" )
+        if ( $action === 'password' OR $action === "insert" )
         {
             $arr_data["Password"] = $this->anti_sql ( $user->getPassword () );
         }
-        else if ( $action === 'status' )
+        if ( $action === 'status' )
         {
             $arr_data["Status"] = $this->anti_sql ( $user->getStatus () );
+        }
+        if ( $action === "insert" )
+        {
+            $arr_data["Email"] = $this->anti_sql ( $user->getEmail () );
         }
         return $arr_data;
     }

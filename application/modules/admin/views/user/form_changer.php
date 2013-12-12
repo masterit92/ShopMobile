@@ -1,22 +1,15 @@
 <div id="content">
-    <h1>Form Create User</h1>
-    <form action="<?php echo base_url ( "admin/user/save")?>" method="post">
+    <h1>Form Edit Profile User</h1>
+    <form action="<?php echo base_url ( "admin/user/save" ) ?>" method="post">
+        <input type="hidden" name="user_id" value="<?php echo $this->input->get ( 'id' ) ?>"/>
         <p><strong>Note:</strong> Items marked <span class="required">*</span> are required fields</p>
         <fieldset id="personal">
             <legend><span>User Information</span></legend>
             <ol>
-                <li><label for="forename"  class="required">Full Name<span>*</span></label>
-                    <input name="full_name" type="text" id="full_name" value="" placeholder="Full Name"  />	
+                <li><label for="forename"  class="required">New Password<span>*</span></label>
+                    <input name="password" type="password" id="password" value="" placeholder="Password"  />	
                 </li>
-                <li>
-                    <label for="surname"  class="required">Email<span>*</span></label>	
-                    <input type="text" id="email" name="email" placeholder="Email"  />
-                </li>
-                <li>
-                    <label for="email"  class="required">Password<span>*</span></label>
-                    <input type="password" id="password" name="password" placeholder="Password" />
-                </li>
-                <li>
+                 <li>
                     <label for="email"  class="required">Re-Password<span>*</span></label>
                     <input type="password" id="re_password" name="re_password" placeholder="Re-Password" />
                 </li>
@@ -31,7 +24,7 @@
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="Create User" /></label>
+            <input type="submit" id="formsubmit" name="save" value="Changer" /></label>
         </fieldset>
     </form>
 </div>

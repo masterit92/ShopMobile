@@ -38,8 +38,8 @@ else
                         ?>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ('admin/role/edit'); ?>?id=<?php echo $cate->getRole_id (); ?>">Edit</a>
-                        <a href="<?php echo base_url ('admin/role/delete'); ?>?id=<?php echo $cate->getRole_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ( 'admin/role/edit' ); ?>?id=<?php echo $cate->getRole_id (); ?>">Edit</a>
+                        <a href="<?php echo base_url ( 'admin/role/delete' ); ?>?id=<?php echo $cate->getRole_id (); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -47,7 +47,7 @@ else
             ?>
             <tr>
                 <td colspan="4">
-                    <a href="<?php echo base_url ('admin/role/create'); ?>">Add New</a>
+                    <a href="<?php echo base_url ( 'admin/role/create' ); ?>">Add New</a>
                 </td>
             </tr>
         </tbody>
