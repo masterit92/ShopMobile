@@ -39,7 +39,8 @@ if ( isset ( $data['pro'] ) )
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="<?php echo isset ( $pro ) ? 'Edit' : 'Create' ?>" /></label>
+            <input type="submit" id="formsubmit" name="save" value="<?php echo isset ( $pro ) ? 'Edit' : 'Create' ?>" />
+            <input type="button" id="formsubmit" name="back" value="Back" onclick="javascript: history.go(-1)" />
         </fieldset>
     </form>
 </div>

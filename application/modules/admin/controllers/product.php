@@ -1,5 +1,4 @@
 <?php
-
 class Product extends CI_Controller {
 
     protected $check_role = TRUE;
@@ -206,18 +205,98 @@ class Product extends CI_Controller {
     {
         if ( $this->check_role )
         {
-            if(isset($_GET['img_id'])){
-                $img_id= $_GET['img_id'];
-                $dto_img= new DTO_image();
-                $dto_img= $this->m_product->get_img_by_id($img_id);
-                if($this->m_product->delete_img($img_id)){
+            if ( isset ( $_GET['img_id'] ) )
+            {
+                $img_id = $_GET['img_id'];
+                $dto_img = new DTO_image();
+                $dto_img = $this->m_product->get_img_by_id ( $img_id );
+                if ( $this->m_product->delete_img ( $img_id ) )
+                {
                     //success
-                    unlink($dto_img->getUrl());
-                }else{
+                    unlink ( $dto_img->getUrl () );
+                }
+                else
+                {
                     //errror
                 }
             }
-             redirect ( 'admin/product/view_image?pro_id='.$_GET['pro_id'] );
+            redirect ( 'admin/product/view_image?pro_id=' . $_GET['pro_id'] );
+        }
+    }
+
+    public function edit_image ()
+    {
+        if ( $this->check_role )
+        {
+            $temp['data']['img'] = $this->m_product->get_img_by_id ( $_GET['img_id'] );
+            $temp['title'] = "Image";
+            $temp['template'] = "product/form_img";
+            $this->load->view ( "backend/layout", $temp );
+        }
+    }
+
+    public function create_image ()
+    {
+        if ( $this->check_role )
+        {
+            if ( $this->input->get ( 'pro_id' ) )
+            {
+                $temp['data']['count_img'] = $this->m_product->get_count_img_by_pro ( $this->input->get ( 'pro_id' ) );
+            }
+            $temp['title'] = "Image";
+            $temp['template'] = "product/form_img";
+            $this->load->view ( "backend/layout", $temp );
+        }
+    }
+
+    public function save_image ()
+    {
+        if ( $this->check_role )
+        {
+            if ( isset ( $_POST['save'] ) )
+            {
+                if ( isset ( $_POST['img_id'] ) )
+                {
+                    $dto_img = new DTO_image();
+                    $dto_img->setUrl ( $this->upload_img ( "img" ) );
+                    if ( $this->m_product->upate_img ( $dto_img, $_POST['img_id'] ) )
+                    {
+                        if ( $dto_img->getUrl () != NULL )
+                        {
+                            unlink ( $_POST['url_old'] );
+                        }
+                        //success
+                    }
+                    else
+                    {
+                        //error
+                    }
+                }
+                else
+                {
+                    $count_img = $_POST["count_img"];
+                    for ( $i = 0; $i < $count_img; $i++ )
+                    {
+                        $filed_name= 'img'.$i;
+                        if ($_FILES[$filed_name]['name'] != NULL )
+                        {
+                            $img = new DTO_image();
+                            $img->setUrl ( $this->upload_img ( "$filed_name" ) );
+                            $img->setPro_id ( $_POST['pro_id'] );
+                            if ( $this->m_product->insert_img ( $img ) )
+                            {
+                                //success
+                            }
+                            else
+                            {
+                                //error
+                            }
+                        }
+                    }
+                }
+                redirect ( "admin/product/view_image?pro_id=" . $_POST['pro_id'] );
+            }
+            redirect ( "admin/product/list_product" );
         }
     }
 

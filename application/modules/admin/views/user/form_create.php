@@ -31,7 +31,8 @@
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="Create User" /></label>
+            <input type="submit" id="formsubmit" name="save" value="Create User" />
+            <input type="button" id="formsubmit" name="back" value="Back" onclick="javascript: history.go(-1)" />
         </fieldset>
     </form>
 </div>

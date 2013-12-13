@@ -16,7 +16,8 @@ $dto_user = $data['user'];
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="Edit Profile" /></label>
+            <input type="submit" id="formsubmit" name="save" value="Edit Profile" />
+            <input type="button" id="formsubmit" name="back" value="Back" onclick="javascript: history.go(-1)" />
         </fieldset>
     </form>
 </div>

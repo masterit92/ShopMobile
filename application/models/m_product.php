@@ -1,5 +1,4 @@
 <?php
-
 class M_product extends My_database {
 
     private $table_name = "products";
@@ -258,6 +257,49 @@ class M_product extends My_database {
         return NULL;
     }
 
+    public function get_count_img_by_pro ( $pro_id )
+    {
+        $pro_id = $this->anti_sql ( $pro_id );
+        try
+        {
+            $this->db->where ( "Pro_id", $pro_id );
+            $query = $this->db->get ( "images" );
+            return $query->num_rows ();
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
+    public function insert_img ( DTO_image $dto_img )
+    {
+        try
+        {
+            return $this->insert ( 'images', $this->arr_data_img ( $dto_img ) );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
+    public function upate_img ( DTO_image $dto_img, $img_id )
+    {
+        try
+        {
+            $arr_condition= array("Img_id"=>$img_id);
+            return $this->update ( 'images',$arr_condition, $this->arr_data_img ( $dto_img ) );
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
     protected function set_arr_data ( DTO_product $pro, $action = 'update' )
     {
         $arr_data = array( );
@@ -290,9 +332,12 @@ class M_product extends My_database {
     protected function arr_data_img ( DTO_image $img )
     {
         $arr_data = array( );
-        $arr_data['Img_id'] = $this->anti_sql ( $img->getImg_id () );
-        $arr_data['Pro_id'] = $this->anti_sql ( $img->getPro_id () );
-        $arr_data['Url'] = $this->anti_sql ( $img->getUrl () );
+        if ( $img->getImg_id () != NULL )
+            $arr_data['Img_id'] = $this->anti_sql ( $img->getImg_id () );
+        if ( $img->getPro_id () != NULL )
+            $arr_data['Pro_id'] = $this->anti_sql ( $img->getPro_id () );
+        if ( $img->getUrl () != NULL )
+            $arr_data['Url'] = $this->anti_sql ( $img->getUrl () );
         return $arr_data;
     }
 

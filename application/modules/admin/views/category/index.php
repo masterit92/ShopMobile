@@ -15,7 +15,7 @@ else
             $dto_cat = new DTO_category();
             foreach ( $menus as $dto_cat )
             {
-                echo '<ul>';
+                echo '<ul id="treeview_cat">';
                 if ( $dto_cat->getParent_id () == $parrent )
                 {
                     echo "<li>" . $dto_cat->getName ();

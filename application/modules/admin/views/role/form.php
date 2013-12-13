@@ -28,7 +28,8 @@ if ( isset ( $data['role'] ) )
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="<?php echo isset($user)?'Edit Role' : 'Create Role'?>" /></label>
+            <input type="submit" id="formsubmit" name="save" value="<?php echo isset($user)?'Edit Role' : 'Create Role'?>" />
+            <input type="button" id="formsubmit" name="back" value="Back" onclick="javascript: history.go(-1)" />
         </fieldset>
     </form>
 </div>
