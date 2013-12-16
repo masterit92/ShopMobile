@@ -166,7 +166,7 @@ background:url(../images/pag_bg_a.gif) no-repeat center;
 text-decoration:none; 
 color:#ad1614;
 }
-div.oferta_pagination span.current {
+div.oferta_pagination a.current {
 width:22px;
 height:22px;
 display:block;

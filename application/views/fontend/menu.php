@@ -1,9 +1,9 @@
 <div id="menu_tab">
     <div class="left_menu_corner"></div>
     <ul class="menu">
-        <li><a href="#" class="nav1"> Home</a></li>
+        <li><a href="<?php echo base_url ('default')?>" class="nav1"> Home</a></li>
         <li class="divider"></li>
-        <li><a href="#" class="nav2">Products</a></li>
+        <li><a href="<?php echo base_url ('default/product')?>" class="nav2">Products</a></li>
         <li class="divider"></li>
         <li><a href="#" class="nav3">Specials</a></li>
         <li class="divider"></li>

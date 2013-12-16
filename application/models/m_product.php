@@ -52,6 +52,29 @@ class M_product extends My_database {
         }
         return NULL;
     }
+    
+    public function get_limit_product ( $num_pro=5, $start=0)
+    {
+        try
+        {
+            $this->db->where("Status","1");
+            $this->db->limit($num_pro,$start);
+            $query=$this->db->get($this->table_name);
+            $list_pro = $query->result_array();
+            $arr_pro = array( );
+            foreach ( $list_pro as $value )
+            {
+                $arr_pro[] = $this->set_value_profile ( $value );
+            }
+            return $arr_pro;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+    
 
     public function get_product_by_id ( $pro_id, $isStatus = FALSE )
     {

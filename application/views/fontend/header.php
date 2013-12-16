@@ -1,3 +1,34 @@
+<?php
+if ( !isset ( $_POST['data_pro'] ) )
+{
+    $list_pro = 0;
+}
+else
+{
+    $list_pro = $_POST['data_pro'];
+    if($list_pro>4){
+        $list_pro=0;
+    }
+}
+$this->load->Model ( "m_product" );
+$m_pro = new M_product();
+$five_pro = $m_pro->get_limit_product ();
+$dto_pro = new DTO_product();
+$dto_pro = $five_pro[$list_pro];
+$list_pro ++;
+?>
+<script>
+    $(function() {
+        $(".pro").click(function() {
+            pro_id = $(this).attr("pro_id");
+            $('#header').load("<?php echo base_url ( 'default' ); ?>", {data_pro: pro_id});
+        });
+        setInterval(function() {
+            //$('#header').load("<?php //echo base_url ( 'default' ); ?>", {data_pro: <?php //echo $list_pro ?>});
+            //alert();
+        }, 8000);
+    });
+</script>
 <div id="header">
     <div id="logo"> 
         <a href="#">
@@ -8,13 +39,26 @@
             <img src="<?php echo base_url ( 'public/fontend/images/header_divider.png' ) ?>" alt="" width="1" height="164" />
         </div>
         <div class="oferta">
-            <div class="oferta_content"> <img src="<?php echo base_url ( 'public/fontend/images/laptop.png' ) ?>" width="94" height="92" alt="" border="0" class="oferta_img" />
+            <div class="oferta_content" id="oferta"> 
+                <img src="<?php echo base_url ( $dto_pro->getThumb () ) ?>" width="94" height="92" alt="" border="0" class="oferta_img" />
                 <div class="oferta_details">
-                    <div class="oferta_title">Samsung GX 2004 LM</div>
-                    <div class="oferta_text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </div>
-                    <a href="details.html" class="details">details</a> </div>
+                    <div class="oferta_title"><?php echo $dto_pro->getName () ?></div>
+                    <div class="oferta_text"><?php echo $dto_pro->getDescription () ?></div>
+                    <a href="<?php echo base_url ( "product/detail?pro_id=" . $dto_pro->getPro_id () ) ?>" class="details">Details</a> </div>
             </div>
-            <div class="oferta_pagination"> <span class="current">1</span> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </div>
+            <div class="oferta_pagination"> 
+                <?php
+                $cur = 0;
+                if ( isset ( $_POST['data_pro'] ) )
+                    $cur = $_POST['data_pro'];
+                for ( $i = 0; $i < 5; $i++ )
+                {
+                    ?>
+                    <a <?php echo ($i == $cur) ? 'class="current pro"' : 'class="pro"' ?> pro_id="<?php echo $i ?>"> <?php echo $i + 1; ?> </a> 
+    <?php
+}
+?>
+            </div>
         </div>
         <div class="top_divider"><img src="<?php echo base_url ( 'public/fontend/images/header_divider.png' ) ?>" alt="" width="1" height="164" /></div>
     </div>

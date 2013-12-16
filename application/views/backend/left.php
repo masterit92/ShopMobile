@@ -4,7 +4,7 @@
     <div class="container-menu-content">
         <div id='cssmenu'>
             <ul>
-                <li class='active '><a href='<?php echo base_url (); ?>admin/index/home'><span>Home</span></a></li>
+                <li class=' '><a href='<?php echo base_url (); ?>admin/index/home'><span>Home</span></a></li>
                 <li class='has-sub '><a href='#'><span>User</span></a>
                     <ul>
                         <li><a href="<?php echo base_url ('admin/user/list_user'); ?>"><span>User</span></a></li>

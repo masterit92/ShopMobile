@@ -144,6 +144,25 @@ class M_category extends My_database {
         return FALSE;
     }
 
+    public function check_chiden ( $cat_id )
+    {
+        $cat_id = $this->anti_sql ( $cat_id );
+        try
+        {
+            $this->db->where ( "Parent_id", $cat_id );
+            $query = $this->db->get ( $this->table_name );
+            if ( $query->num_rows () > 0 )
+            {
+                return TRUE;
+            }
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return FALSE;
+    }
+
     protected function set_arr_data ( DTO_category $cat, $action = 'update' )
     {
         $arr_data = array( );

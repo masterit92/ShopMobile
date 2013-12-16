@@ -27,32 +27,18 @@ if ( isset ( $data['cat'] ) )
                         <?php
                         $menus = $this->m_category->get_all_category ();
 
-                        function show_menu ( $menus = array( ), $parrent = 0, $gach = " " )
+                        function show_menu ( $menus = array( ), $parrent = 0, $text = "--" )
                         {
                             $dto_cat = new DTO_category();
-                            $parent_old = 0;
                             foreach ( $menus as $dto_cat )
                             {
-                                
                                 if ( $dto_cat->getParent_id () == $parrent )
                                 {
-                                    if ( $dto_cat->getParent_id () == 0 )
-                                        $gach = "- ";
-                                    echo "<option>" . $gach . $dto_cat->getName ();
-                                    echo '</option>';
-                                    
-                                    show_menu ( $menus, $dto_cat->getCat_id (), $gach );
-                                    
-                                    if ( $parent_old != $dto_cat->getParent_id () )
-                                    {
-                                        $gach.='---  ';
-                                    }
-                                    $parent_old = $dto_cat->getParent_id ();
+                                    $cat_id= $dto_cat->getCat_id();
+                                    echo  "<option value='$cat_id'>".$text  . $dto_cat->getName () . "</option>";
+                                    show_menu ( $menus, $dto_cat->getCat_id (), $text . '--' );
                                 }
                             }
-
-
-                            //return $arr;
                         }
 
                         show_menu ( $menus );

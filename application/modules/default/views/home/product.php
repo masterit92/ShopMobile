@@ -1,4 +1,4 @@
-<div class="center_title_bar">New Products</div>
+<div class="center_title_bar">All Products</div>
 <?php
 $dto_pro = new DTO_product();
 foreach ( $data['list_pro'] as $dto_pro )
@@ -19,7 +19,7 @@ foreach ( $data['list_pro'] as $dto_pro )
         </div>
         <div class="bottom_prod_box"></div>
         <div class="prod_details_tab"> <a href="" title="header=[Add to cart] body=[&nbsp;] fade=[on]">
-                <a href="<?php echo base_url ('default/detail?pro_id='.$dto_pro->getPro_id ())?>" class="prod_details">details</a> </div>
+                <a href="details.html" class="prod_details">details</a> </div>
     </div>
     <?php
 }
