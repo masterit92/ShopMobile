@@ -7,7 +7,7 @@ if ( isset ( $data['role'] ) )
 ?>
 <div id="content">
     <h1>Form Role</h1>
-    <form action="<?php echo  base_url('admin/role/save')?>" method="post">
+    <form action="<?php echo  base_url('admin/role/save')?>" method="post" id="input_form">
         <?php if(isset($user)){?>
         <input type="hidden" name="role_id" value="<?php echo $user->getRole_id ();?>"/>
         <?php }?>
@@ -16,7 +16,7 @@ if ( isset ( $data['role'] ) )
             <legend><span>Information Role</span></legend>
             <ol>
                 <li><label for="forename" title="Enter your forename" class="required">Role Name:<span>*</span></label>
-                    <input name="role_name" type="text" id="role_name" value="<?php echo isset ( $user ) ? $user->getName () : '' ?>" placeholder="Role Name" />	
+                    <input name="role_name" class="required" type="text" id="role_name" value="<?php echo isset ( $user ) ? $user->getName () : '' ?>" placeholder="Role Name" />	
                 </li>
                 <li>
                     <label for="surname" title="Enter your surname" class="required">Status<span>*</span></label>	

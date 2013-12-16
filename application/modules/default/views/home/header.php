@@ -21,12 +21,12 @@ $list_pro ++;
     $(function() {
         $(".pro").click(function() {
             pro_id = $(this).attr("pro_id");
-            $('#header').load("<?php echo base_url ( 'default' ); ?>", {data_pro: pro_id});
+            $('#header').load("<?php echo base_url ( 'default/load_header' ); ?>", {data_pro: pro_id});
         });
         setInterval(function() {
-            //$('#header').load("<?php //echo base_url ( 'default' ); ?>", {data_pro: <?php //echo $list_pro ?>});
+            $('#header').load("<?php echo base_url ( 'default/load_header' ); ?>", {data_pro: <?php echo $list_pro ?>});
             //alert();
-        }, 8000);
+        }, 6000);
     });
 </script>
 <div id="header">
@@ -44,7 +44,7 @@ $list_pro ++;
                 <div class="oferta_details">
                     <div class="oferta_title"><?php echo $dto_pro->getName () ?></div>
                     <div class="oferta_text"><?php echo $dto_pro->getDescription () ?></div>
-                    <a href="<?php echo base_url ( "product/detail?pro_id=" . $dto_pro->getPro_id () ) ?>" class="details">Details</a> </div>
+                    <a href="<?php echo base_url ( "default/detail?pro_id=" . $dto_pro->getPro_id () ) ?>" class="details">Details</a> </div>
             </div>
             <div class="oferta_pagination"> 
                 <?php
@@ -54,7 +54,7 @@ $list_pro ++;
                 for ( $i = 0; $i < 5; $i++ )
                 {
                     ?>
-                    <a <?php echo ($i == $cur) ? 'class="current pro"' : 'class="pro"' ?> pro_id="<?php echo $i ?>"> <?php echo $i + 1; ?> </a> 
+                <a href="#" <?php echo ($i == $cur) ? 'class="current pro"' : 'class="pro"' ?> pro_id="<?php echo $i ?>"> <?php echo $i + 1; ?> </a> 
     <?php
 }
 ?>

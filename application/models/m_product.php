@@ -1,4 +1,5 @@
 <?php
+
 class M_product extends My_database {
 
     private $table_name = "products";
@@ -29,7 +30,7 @@ class M_product extends My_database {
         return $img;
     }
 
-    public function get_all_product ( $isStatus = FALSE )
+    public function get_all_product ( $isStatus = FALSE, $sort_name = NULL, $sort_price = NULL )
     {
         try
         {
@@ -37,6 +38,14 @@ class M_product extends My_database {
             if ( $isStatus )
             {
                 $arr_where['Status'] = 1;
+            }
+            if ( $sort_name != NULL )
+            {
+                $this->db->order_by ( "Name", $sort_name );
+            }
+            if ( $sort_price != NULL )
+            {
+                $this->db->order_by ( "Price", $sort_price );
             }
             $list_pro = $this->get_table ( $this->table_name, $arr_where );
             $arr_pro = array( );
@@ -52,15 +61,18 @@ class M_product extends My_database {
         }
         return NULL;
     }
-    
-    public function get_limit_product ( $num_pro=5, $start=0)
+
+    public function get_product_name ( $name_pro, $isStatus = FALSE )
     {
         try
         {
-            $this->db->where("Status","1");
-            $this->db->limit($num_pro,$start);
-            $query=$this->db->get($this->table_name);
-            $list_pro = $query->result_array();
+            $arr_where = array( );
+            if ( $isStatus )
+            {
+                $arr_where['Status'] = 1;
+            }
+            $this->db->like ( "Name", $name_pro );
+            $list_pro = $this->get_table ( $this->table_name, $arr_where );
             $arr_pro = array( );
             foreach ( $list_pro as $value )
             {
@@ -74,7 +86,104 @@ class M_product extends My_database {
         }
         return NULL;
     }
-    
+
+    public function get_pro_cat ( $cat_id )
+    {
+        try
+        {
+            $arr_where = array( "Cat_id" => $cat_id );
+            $list = $this->get_table ( "cat_and_pro", $arr_where );
+            $arr = array( );
+            foreach ( $list as $value )
+            {
+                $dto_cat_pro = new DTO_cat_and_pro();
+                $dto_cat_pro->set_property ( $value['Pro_id'], $value["Cat_id"] );
+                $arr[] = $dto_cat_pro;
+            }
+            return $arr;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
+    public function get_product_by_cat_id ( $cat_id )
+    {
+        try
+        {
+            $arr_pro_id = array( );
+            $dto_cat_pro = new DTO_cat_and_pro();
+            foreach ( $this->get_pro_cat ( $cat_id ) as $dto_cat_pro )
+            {
+                $arr_pro_id[] = $dto_cat_pro->getPro_id ();
+            }
+            $this->db->where ( "Status", 1 );
+            $this->db->where_in ( "Pro_id", $arr_pro_id );
+
+            $query = $this->db->get ( $this->table_name );
+            $list_pro = $query->result_array ();
+            $arr_pro = array( );
+            foreach ( $list_pro as $value )
+            {
+                $arr_pro[] = $this->set_value_profile ( $value );
+            }
+            return $arr_pro;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
+    public function get_limit_product ( $num_pro = 5, $start = 0 )
+    {
+        try
+        {
+            $this->db->where ( "Status", "1" );
+            $this->db->limit ( $num_pro, $start );
+            $query = $this->db->get ( $this->table_name );
+            $list_pro = $query->result_array ();
+            $arr_pro = array( );
+            foreach ( $list_pro as $value )
+            {
+                $arr_pro[] = $this->set_value_profile ( $value );
+            }
+            return $arr_pro;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
+    public function get_similar_product ( $price, $pro_id, $num_pro = 3, $start = 0 )
+    {
+        try
+        {
+            $this->db->where ( "Status", "1" );
+            $this->db->where ( "Pro_id <>", $pro_id );
+            $this->db->where ( "Price <=", $price + 10 );
+            $this->db->where ( "Price >=", ($price - 10 ) );
+            $this->db->limit ( $num_pro, $start );
+            $query = $this->db->get ( $this->table_name );
+            $list_pro = $query->result_array ();
+            $arr_pro = array( );
+            foreach ( $list_pro as $value )
+            {
+                $arr_pro[] = $this->set_value_profile ( $value );
+            }
+            return $arr_pro;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
 
     public function get_product_by_id ( $pro_id, $isStatus = FALSE )
     {
@@ -313,8 +422,8 @@ class M_product extends My_database {
     {
         try
         {
-            $arr_condition= array("Img_id"=>$img_id);
-            return $this->update ( 'images',$arr_condition, $this->arr_data_img ( $dto_img ) );
+            $arr_condition = array( "Img_id" => $img_id );
+            return $this->update ( 'images', $arr_condition, $this->arr_data_img ( $dto_img ) );
         }
         catch ( Exception $ex )
         {

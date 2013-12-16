@@ -617,3 +617,28 @@ text-align:center;
 color:#666666;
 padding:10px 0 0 60px;
 }
+
+.page{
+    width: 420px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    float: left;
+    clear: both;
+    font-size: 10px;
+}
+.page a{
+    padding: 2px 5px 2px 5px;
+    margin-right: 2px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #990000;
+}
+.page a:hover{
+    background-color: #990000;
+    color: #ffffff;
+}
+.page a.current{
+    background-color: #990000;
+    color: #ffffff;
+}

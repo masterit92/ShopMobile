@@ -1,17 +1,17 @@
 <div id="content">
     <h1>Form Edit Profile User</h1>
-    <form action="<?php echo base_url ( "admin/user/save" ) ?>" method="post">
+    <form action="<?php echo base_url ( "admin/user/save" ) ?>" method="post" id="input_form">
         <input type="hidden" name="user_id" value="<?php echo $this->input->get ( 'id' ) ?>"/>
         <p><strong>Note:</strong> Items marked <span class="required">*</span> are required fields</p>
         <fieldset id="personal">
             <legend><span>User Information</span></legend>
             <ol>
                 <li><label for="forename"  class="required">New Password<span>*</span></label>
-                    <input name="password" type="password" id="password" value="" placeholder="Password"  />	
+                    <input name="password" type="password" id="password" value="" placeholder="Password" class="required" />	
                 </li>
                  <li>
                     <label for="email"  class="required">Re-Password<span>*</span></label>
-                    <input type="password" id="re_password" name="re_password" placeholder="Re-Password" />
+                    <input type="password" id="re_password" name="re_password" placeholder="Re-Password" class="required"/>
                 </li>
                 <li>
                     <label for="email"  class="required">Code<span>*</span></label>

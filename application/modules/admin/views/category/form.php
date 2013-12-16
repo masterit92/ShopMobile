@@ -7,7 +7,7 @@ if ( isset ( $data['cat'] ) )
 ?>
 <div id="content">
     <h1>Form Category</h1>
-    <form action="<?php echo base_url ( 'admin/category/save' ) ?>" method="post">
+    <form action="<?php echo base_url ( 'admin/category/save' ) ?>" method="post" id="input_form">
         <?php
         if ( isset ( $cat ) )
         {
@@ -19,7 +19,7 @@ if ( isset ( $data['cat'] ) )
             <legend><span>Information Category</span></legend>
             <ol>
                 <li><label for="forename" title="Enter your forename" class="required">Role Name<span>*</span></label>
-                    <input name="cat_name" type="text" id="cat_name" value="<?php echo isset ( $cat ) ? $cat->getName () : '' ?>" placeholder="Category Name" />	
+                    <input name="cat_name" class="required" type="text" id="cat_name" value="<?php echo isset ( $cat ) ? $cat->getName () : '' ?>" placeholder="Category Name" />	
                 </li>
                 <li><label for="forename" title="Enter your forename" class="required">Parent Category<span>*</span></label>
                     <select name="parent_id">
