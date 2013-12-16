@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2013 at 04:57 AM
--- Server version: 5.6.11
--- PHP Version: 5.5.3
+-- Generation Time: Dec 16, 2013 at 05:26 PM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -61,9 +61,20 @@ INSERT INTO `category` (`Cat_id`, `Name`, `Parent_id`, `Status`) VALUES
 CREATE TABLE IF NOT EXISTS `cat_and_pro` (
   `Pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `Cat_id` int(11) NOT NULL,
-  PRIMARY KEY (`Pro_id`,`Cat_id`),
-  UNIQUE KEY `Pro_id` (`Pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`Pro_id`,`Cat_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `cat_and_pro`
+--
+
+INSERT INTO `cat_and_pro` (`Pro_id`, `Cat_id`) VALUES
+(1, 2),
+(1, 5),
+(1, 8),
+(1, 9),
+(2, 2),
+(2, 6);
 
 -- --------------------------------------------------------
 
@@ -75,9 +86,22 @@ CREATE TABLE IF NOT EXISTS `images` (
   `Img_id` int(11) NOT NULL AUTO_INCREMENT,
   `Pro_id` int(11) NOT NULL,
   `Url` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
-  `Status` smallint(6) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Img_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`Img_id`, `Pro_id`, `Url`) VALUES
+(1, 1, 'public/backend/images/oscommerce_template_0171_M.jpg'),
+(2, 1, 'public/backend/images/6605_88888888888.jpg'),
+(3, 1, 'public/backend/images/7777777777777.jpg'),
+(5, 2, '222222'),
+(6, 3, 'public/backend/images/lt-leo-hitech-600x1068.jpg'),
+(7, 3, 'public/backend/images/4673_oscommerce_template_0171_M.jpg'),
+(8, 3, 'public/backend/images/3323_lt-leo-hitech-600x1068.jpg'),
+(9, 3, 'public/backend/images/Chrysanthemum.jpg');
 
 -- --------------------------------------------------------
 
@@ -94,14 +118,20 @@ CREATE TABLE IF NOT EXISTS `products` (
   `Status` smallint(6) NOT NULL DEFAULT '1',
   `Thumb` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Pro_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`Pro_id`, `Name`, `Price`, `Description`, `Quantity`, `Status`, `Thumb`) VALUES
-(1, 'Pro1', 12, NULL, 1, 1, 'thum1');
+(1, 'Pro1', 12, 'haha', 1, 1, 'public/backend/images/lt-leo-hitech-600x1068.jpg'),
+(2, 'Pro2', 12, '12', 12, 1, 'public/backend/images/hhhh.png'),
+(3, 'pro3', 231, '21', 121, 1, 'public/backend/images/quanao.jpg'),
+(4, 'Pro 3', 12, 'ffdfd', 121, 1, 'public/backend/images/ssss.jpg'),
+(5, 'pro4', 21, '221', 121, 1, 'public/backend/images/33333333333.jpg'),
+(6, 'Pro 6', 54, '545', 54, 1, 'public/backend/images/1111.jpg'),
+(7, 'sdd', 0, '', 1, 1, 'public/backend/images/4444444444.jpg');
 
 -- --------------------------------------------------------
 
@@ -166,8 +196,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`User_id`, `Email`, `Password`, `Full_name`, `Status`) VALUES
-(2, 'demo@gmail.com', '1234567', 'Mod', 1),
-(3, 'binhpt', '1234567', 'HAHA', 1),
+(2, 'demo@gmail.com', '1234567', 'Phan The Binh', 1),
+(3, 'binhpt', '1234567', 'HAHAhas', 1),
 (4, 'user@gmail.com', '1234567', 'User', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
