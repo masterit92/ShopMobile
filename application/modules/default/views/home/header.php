@@ -23,10 +23,10 @@ $list_pro ++;
             pro_id = $(this).attr("pro_id");
             $('#header').load("<?php echo base_url ( 'default/load_header' ); ?>", {data_pro: pro_id});
         });
-        setInterval(function() {
-            $('#header').load("<?php echo base_url ( 'default/load_header' ); ?>", {data_pro: <?php echo $list_pro ?>});
-            //alert();
-        }, 6000);
+//        setInterval(function() {
+//            $('#header').load("<?php //echo base_url ( 'default/load_header' ); ?>", {data_pro: <?php //echo $list_pro ?>});
+//            //alert();
+//        }, 6000);
     });
 </script>
 <div id="header">

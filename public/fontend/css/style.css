@@ -274,6 +274,7 @@ font-size:13px;
 font-weight:bold;
 color:#fff;
 line-height:30px;
+float: left;
 }
 /*--------left menu---------*/
 ul.left_menu{
@@ -303,6 +304,8 @@ width:194px;
 height:auto;
 text-align:center;
 border:1px #6da6b1 solid;
+float: left;
+padding-bottom: 5px;
 }
 .product_title{
 color:#ea2222;

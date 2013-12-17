@@ -109,7 +109,7 @@ class M_product extends My_database {
         return NULL;
     }
 
-    public function get_product_by_cat_id ( $cat_id )
+    public function get_product_by_cat_id ( $cat_id)
     {
         try
         {

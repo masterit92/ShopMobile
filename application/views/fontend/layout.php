@@ -3,8 +3,8 @@
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <?php
-        $arr_file_css = array( 'iecss.css', 'style.css', 'menu_left.css' );
-        $arr_file_js = array( "windowopen.js", "boxOver.js",'jquery-1.10.2.js','jquery.validate.min.js' );
+        $arr_file_css = array( 'slider_price.css','iecss.css', 'style.css', 'menu_left.css','menu_left.css' );
+        $arr_file_js = array( "jquery-ui.js","jquery-1.9.1.js","windowopen.js", "boxOver.js",'jquery-1.10.2.js','jquery.validate.min.js' );
         echo $this->render->Render_css ( $arr_file_css, 'fontend' );
         echo $this->render->Render_js ( $arr_file_js, 'fontend' );
         ?> 
