@@ -30,12 +30,18 @@ if ( isset ( $data['cat'] ) )
                         function show_menu ( $menus = array( ), $parrent = 0, $text = "--" )
                         {
                             $dto_cat = new DTO_category();
+
                             foreach ( $menus as $dto_cat )
                             {
                                 if ( $dto_cat->getParent_id () == $parrent )
                                 {
-                                    $cat_id= $dto_cat->getCat_id();
-                                    echo  "<option value='$cat_id'>".$text  . $dto_cat->getName () . "</option>";
+                                    $cat_id = $dto_cat->getCat_id ();
+                                    if ( $cat_id != $_GET['id'] )
+                                    {
+                                        echo "<option value='$cat_id'>" . $text . $dto_cat->getName () . "</option>";
+                                    }else{
+                                        echo "<option value='$cat_id' disabled>" . $text . $dto_cat->getName () . "</option>";
+                                    }
                                     show_menu ( $menus, $dto_cat->getCat_id (), $text . '--' );
                                 }
                             }
