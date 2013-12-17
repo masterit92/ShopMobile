@@ -55,7 +55,7 @@ class Index extends CI_Controller {
     public function product_category ()
     {
         $temp['data']['list_pro'] = $this->m_product->get_product_by_cat_id ( $_POST['cat_id'], TRUE );
-        $this->load->view ( "home/index", $temp );
+        $this->load->view ( "home/product", $temp );
     }
 
     public function product_search ()
