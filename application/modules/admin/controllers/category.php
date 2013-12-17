@@ -74,10 +74,12 @@ class Category extends CI_Controller {
             if ( $this->m_category->update_status ( $cat, $id ) )
             {
                 //success
+                 
             }
             else
             {
                 //error
+                 
             }
             redirect ( 'admin/category/list_category' );
         }

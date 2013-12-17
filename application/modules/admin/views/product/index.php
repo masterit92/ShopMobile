@@ -1,3 +1,4 @@
+
 <?php
 if ( isset ( $data["error"] ) && !$data['error'] )
 {
@@ -5,7 +6,9 @@ if ( isset ( $data["error"] ) && !$data['error'] )
 }
 else
 {
+   
     ?>
+
     <table class="zebra">
         <caption>Manager Product</caption>
         <thead>
@@ -20,27 +23,39 @@ else
         </thead>
         <tbody>
             <?php
+            $page = new Split_page();
+            $page->set_data ( $data['list_pro'], 10 );
+            $curr_page = 1;
+            if ( isset ( $_GET['page'] ) )
+            {
+                $curr_page = $_GET['page'];
+            }
+            else
+            {
+                $_GET['page'] = 1;
+            }
+            $list_data = $page->get_data_page ( $curr_page );
             $pro = new DTO_product();
-            foreach ( $data["list_pro"] as $pro )
+            foreach ( $list_data as $pro )
             {
                 ?>
                 <tr>
                     <td><?php echo $pro->getPro_id (); ?></td>
                     <td><?php echo $pro->getName (); ?></td>
                     <td>
-                        <img src=" <?php echo base_url($pro->getThumb ()); ?>" width="100" height="100"/>
+                        <img src=" <?php echo base_url ( $pro->getThumb () ); ?>" width="100" height="100"/>
                     </td>
                     <td><?php echo $pro->getQuantity (); ?></td>
                     <td>
                         <a href="<?php echo base_url ( 'admin/product/edit_status?id=' ) . $pro->getPro_id () . '&status=' . $pro->getStatus () ?>"> 
-                            <?php echo ($pro->getStatus ()== 1)? 'Active':'No Active' ?>
+                            <?php echo ($pro->getStatus () == 1) ? 'Active' : 'No Active' ?>
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo base_url ( 'admin/product/view_image?pro_id='.$pro->getPro_id ()); ?>">Image</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/set_category_product?pro_id='.$pro->getPro_id () ); ?>">Category</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/edit?id='.$pro->getPro_id () ); ?>">Edit</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/delete?id='. $pro->getPro_id () ); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ( 'admin/product/view_image?pro_id=' . $pro->getPro_id () ); ?>">Image</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/set_category_product?pro_id=' . $pro->getPro_id () ); ?>">Category</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/edit?id=' . $pro->getPro_id () ); ?>">Edit</a> | 
+                        <a href="<?php echo base_url ( 'admin/product/delete?id=' . $pro->getPro_id () ); ?>" onclick="return confirm('I want delete!');">Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -54,5 +69,6 @@ else
         </tbody>
     </table>
     <?php
+     echo $page->view_num_page ( base_url ( "admin/product/list_product" ) );
 }
 ?>

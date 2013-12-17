@@ -1,6 +1,6 @@
 <?php
 $page = new Split_page();
-$page->set_data ( $data['list_pro'],1 );
+$page->set_data ( $data['list_pro'],6 );
 $curr_page = 1;
 if ( isset ( $_GET['page'] ) )
 {

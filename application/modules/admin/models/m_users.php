@@ -1,5 +1,4 @@
 <?php
-
 class M_users extends My_database {
 
     private $table_name = "users";
@@ -194,11 +193,25 @@ class M_users extends My_database {
         $arr_data = array( );
         if ( $action === 'profile' OR $action === "insert" )
         {
-            $arr_data["Full_name"] = $this->anti_sql ( $user->getFull_name () );
+            if ( $user->getFull_name () != NULL )
+            {
+                $arr_data["Full_name"] = $this->anti_sql ( $user->getFull_name () );
+            }
+            else
+            {
+                throw new Exception ( 'Error!', NULL, NULL );
+            }
         }
         if ( $action === 'password' OR $action === "insert" )
         {
-            $arr_data["Password"] = $this->anti_sql ( $user->getPassword () );
+            if ( $user->getFull_name () != NULL )
+            {
+                $arr_data["Password"] = $this->anti_sql ( $user->getPassword () );
+            }
+            else
+            {
+                throw new Exception ( 'Error!', NULL, NULL );
+            }
         }
         if ( $action === 'status' )
         {
@@ -206,7 +219,14 @@ class M_users extends My_database {
         }
         if ( $action === "insert" )
         {
-            $arr_data["Email"] = $this->anti_sql ( $user->getEmail () );
+            if ( $user->getFull_name () != NULL )
+            {
+                $arr_data["Email"] = $this->anti_sql ( $user->getEmail () );
+            }
+            else
+            {
+                throw new Exception ( 'Error!', NULL, NULL );
+            }
         }
         return $arr_data;
     }

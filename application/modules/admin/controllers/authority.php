@@ -47,11 +47,12 @@ class Authority extends CI_Controller {
                     {
                         if ( $this->m_role_user->delete_role_user ( $user_id, $dto_role_user->getRole_id () ) )
                         {
-                            //success
+                           //success
                         }
                         else
                         {
                             //error
+                           
                         }
                     }
                 }
@@ -65,10 +66,12 @@ class Authority extends CI_Controller {
                         if ( $this->m_role_user->insert_role_user ( $role_user ) )
                         {
                             //success
+                             
                         }
                         else
                         {
                             //error
+                            
                         }
                     }
                 }
