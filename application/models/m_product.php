@@ -87,6 +87,31 @@ class M_product extends My_database {
         return NULL;
     }
 
+    public function get_filter_price ( $start, $end,$isStatus = FALSE )
+    {
+        try
+        {
+            $arr_where = array( "Price >= "=>$start, "Price <= "=>$end);
+            if ( $isStatus )
+            {
+                $arr_where['Status'] = 1;
+            }
+            
+            $list_pro = $this->get_table ( $this->table_name, $arr_where );
+            $arr_pro = array( );
+            foreach ( $list_pro as $value )
+            {
+                $arr_pro[] = $this->set_value_profile ( $value );
+            }
+            return $arr_pro;
+        }
+        catch ( Exception $ex )
+        {
+            throw $ex;
+        }
+        return NULL;
+    }
+
     public function get_pro_cat ( $cat_id )
     {
         try
@@ -109,7 +134,7 @@ class M_product extends My_database {
         return NULL;
     }
 
-    public function get_product_by_cat_id ( $cat_id)
+    public function get_product_by_cat_id ( $cat_id )
     {
         try
         {

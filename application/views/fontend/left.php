@@ -10,10 +10,9 @@
                 $('#list_pro').load("<?php echo base_url ( 'default/product_search' ); ?>", {name: name});
             }
         });
-
         $("#slider-range").slider({
             range: true,
-            min: 10,
+            min: 5,
             max: 500,
             values: [75, 300],
             slide: function(event, ui) {
@@ -22,7 +21,12 @@
         });
         $("#amount").val("$" + $("#slider-range").slider("values", 0) +
                 " - $" + $("#slider-range").slider("values", 1));
-
+        $("#slider-range").slider({
+            change: function(event, ui) {
+                price = $("#amount").val();
+                $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {price: price});
+            }
+        });
     });
 </script>
 <div class="left_content">
@@ -80,14 +84,12 @@
     </div>
     <div class="title_box">Filter</div>
     <div class="border_box">
-        <div class='price'> 
-            <p>
-                <label for="amount">Price range:</label>
-                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-            </p>
+        <p>
+            <label for="amount">Price range:</label>
+            <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
 
-            <div id="slider-range"></div>
-        </div>
+        <div id="slider-range"></div>
     </div>
     <div class="banner_adds"> <a href="#"><img src="<?php echo base_url ( 'public/fontend/images/bann2.jpg' ) ?>" alt="" border="0" /></a> </div>
 </div>

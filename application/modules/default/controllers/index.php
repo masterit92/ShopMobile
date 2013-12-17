@@ -1,4 +1,5 @@
 <?php
+
 class Index extends CI_Controller {
 
     public function __construct ()
@@ -26,7 +27,7 @@ class Index extends CI_Controller {
         else if ( isset ( $_POST['sort_price'] ) )
         {
             $temp['data']['cmb'] = 'price_' . $_POST['sort_price'];
-            $temp['data']['list_pro'] = $this->m_product->get_all_product ( TRUE, $_POST['sort_price'] );
+            $temp['data']['list_pro'] = $this->m_product->get_all_product ( TRUE, NULL, $_POST['sort_price'] );
             $this->load->view ( "home/product", $temp );
         }
         else
@@ -69,10 +70,15 @@ class Index extends CI_Controller {
         $this->load->view ( "home/header" );
     }
 
-    public function test_menu ()
+    
+
+    public function filter_data ()
     {
-        $temp['template'] = 'home/test';
-        $this->load->view ( "fontend/layout", $temp );
+        $range = explode(' - ', $_POST['price'] );
+        $min = ltrim($range[0],"$");
+        $max = ltrim($range[1],"$");
+        $temp['data']['list_pro']=$this->m_product->get_filter_price($min, $max,TRUE);
+        $this->load->view ( "home/product" , $temp);
     }
 
 }

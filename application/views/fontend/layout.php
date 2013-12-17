@@ -3,12 +3,16 @@
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <?php
-        $arr_file_css = array( 'slider_price.css','iecss.css', 'style.css', 'menu_left.css','menu_left.css' );
-        $arr_file_js = array( "jquery-ui.js","jquery-1.9.1.js","windowopen.js", "boxOver.js",'jquery-1.10.2.js','jquery.validate.min.js' );
+        $arr_file_css = array( 'slider_price.css', 'iecss.css', 'style.css', 'menu_left.css', 'menu_left.css' );
+        $arr_file_js = array( "windowopen.js", "boxOver.js", 'jquery-1.10.2.js', 'jquery.validate.min.js' );
         echo $this->render->Render_css ( $arr_file_css, 'fontend' );
         echo $this->render->Render_js ( $arr_file_js, 'fontend' );
         ?> 
         <title><?php echo $title; ?></title> 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+            <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+            
     </head> 
 
     <body> 
@@ -19,14 +23,15 @@
                 <?php $this->load->view ( "fontend/left" ); ?> 
                 <div class="center_content">
                     <div id="list_pro">
-                    <?php
-                    $this->load->view ( $template, $data = '' );
-                    ?>  
+                        <?php
+                        $this->load->view ( $template, $data = '' );
+                        ?>  
                     </div>
                 </div>
-                <?php $this->load->view ( "fontend/right" ); ?> 
             </div>
-            <?php $this->load->view ( "fontend/footer" ); ?> 
+            <?php $this->load->view ( "fontend/right" ); ?> 
+        </div>
+        <?php $this->load->view ( "fontend/footer" ); ?> 
         </div>
     </body> 
 </html>

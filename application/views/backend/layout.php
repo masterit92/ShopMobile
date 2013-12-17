@@ -13,7 +13,8 @@ if ( !$this->session->userdata ( "user_infor" ) )
         $arr_file_js=array("jquery-1.10.2.js","jquery.validate.min.js","validate_form.js");
         echo $this->render->Render_css ( $arr_file_css, 'backend' );
         echo $this->render->Render_js ( $arr_file_js, 'backend' );
-        ?> 
+        
+        ?>
         <title><?php echo $title; ?></title> 
     </head> 
 
