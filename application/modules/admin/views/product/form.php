@@ -1,10 +1,14 @@
 <?php
-$cate_pr= 1;
+$cate_pr = 1;
 if ( isset ( $data['pro'] ) )
 {
     $pro = new DTO_product();
     $pro = $data['pro'];
 }
+$this->load->Model ( "m_color" );
+$m_color = new M_color();
+$dto_color = new DTO_color();
+$list_color = $m_color->get_all_color ();
 ?>
 <div id="content">
     <h1>Form Product</h1>
@@ -13,8 +17,8 @@ if ( isset ( $data['pro'] ) )
         if ( isset ( $pro ) )
         {
             ?>
-        <input type="hidden" name="pro_id" value="<?php echo $pro->getPro_id (); ?>"/>
-        <input type="hidden" name="img_old" value="<?php echo $pro->getThumb (); ?>"/>
+            <input type="hidden" name="pro_id" value="<?php echo $pro->getPro_id (); ?>"/>
+            <input type="hidden" name="img_old" value="<?php echo $pro->getThumb (); ?>"/>
         <?php } ?>
         <p><strong>Note:</strong> Items marked <span class="required">*</span> are required fields</p>
         <fieldset id="personal">
@@ -24,7 +28,7 @@ if ( isset ( $data['pro'] ) )
                     <input name="pro_name" class="required" type="text" id="pro_name" value="<?php echo isset ( $pro ) ? $pro->getName () : '' ?>" placeholder="Product Name" />	
                 </li>
                 <li><label for="forename" title="Enter your forename" class="">Thumb<span>*</span></label>
-                   <?php echo isset ( $pro ) ? '<img src='.  base_url ($pro->getThumb ()).' width="100" height="100"/>' : '' ?>
+                    <?php echo isset ( $pro ) ? '<img src=' . base_url ( $pro->getThumb () ) . ' width="100" height="100"/>' : '' ?>
                     <input name="thumb"  type="file" id="thumb"  placeholder="Thumb" />
                 </li>
                 <li><label for="forename" title="Enter your forename" class="required">Price<span>*</span></label>
@@ -33,9 +37,22 @@ if ( isset ( $data['pro'] ) )
                 <li><label for="forename" title="Enter your forename" class="required">Description<span>*</span></label>
                     <input name="description" type="text" id="description" value="<?php echo isset ( $pro ) ? $pro->getDescription () : '' ?>" placeholder="Description" />	
                 </li>
-                 <li><label for="forename" title="Enter your forename" class="required">Quantity<span>*</span></label>
-                     <input name="quantity" class="required" type="text" id="quantity" value="<?php echo isset ( $pro ) ? $pro->getQuantity () : '' ?>" placeholder="Quantity" />	
+                <li><label for="forename" title="Enter your forename" class="required">Quantity<span>*</span></label>
+                    <input name="quantity" class="required" type="text" id="quantity" value="<?php echo isset ( $pro ) ? $pro->getQuantity () : '' ?>" placeholder="Quantity" />	
                 </li>
+                <li><label for="forename" title="Enter your forename" class="required">Color<span>*</span></label>
+                    <select name="id_color">
+                        <?php
+                        foreach ( $list_color as $dto_color )
+                        {
+                            ?>
+                        <option value="<?php echo $dto_color->getColor_id () ?>" <?php echo (isset ( $pro) && $pro->getColor_id()==$dto_color->getColor_id())?'selected':''; ?>><?php echo $dto_color->getName () ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </li>
+
             </ol>
         </fieldset>
         <fieldset id="submitform">

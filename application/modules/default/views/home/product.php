@@ -1,5 +1,5 @@
-
 <?php
+$arr_pro=$data['list_pro'];
 $page = new Split_page();
 $page->set_data ( $data['list_pro'], 6 );
 $curr_page = 1;
@@ -12,6 +12,9 @@ else
     $_GET['page'] = 1;
 }
 $list_data = $page->get_data_page ( $curr_page );
+//$this->session->set_userdata ( 'arr_pro', $list_data );
+ //var_dump ( $this->session->userdata ( "arr_pro" ) );
+
 ?>
 <script>
     $(function() {
@@ -27,7 +30,10 @@ $list_data = $page->get_data_page ( $curr_page );
         $("#rdb_price_asc").click(function() {
             $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {sort_price: 'ASC'});
         });
-        
+        $(".class_page").click(function() {
+
+        });
+
     });
 </script>
 <div class="center_title_bar">All Products 
@@ -39,34 +45,37 @@ $list_data = $page->get_data_page ( $curr_page );
 <div id="sort_pro">
     <?php
     $dto_pro = new DTO_product();
-    if(  count ( $list_data)>0){
-    foreach ( $list_data as $dto_pro )
+    if ( count ( $list_data ) > 0 )
     {
-        ?>
-        <div class="prod_box">
-            <div class="top_prod_box"></div>
-            <div class="center_prod_box">
-                <div class="product_title"><a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>"><?php echo $dto_pro->getName () ?></a></div>
-                <div class="product_img">
-                    <a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>">
-                        <img src="<?php echo base_url ( $dto_pro->getThumb () ) ?>" alt="" border="0" width="150" height="150"/>
-                    </a>
+        foreach ( $list_data as $dto_pro )
+        {
+            ?>
+            <div class="prod_box">
+                <div class="top_prod_box"></div>
+                <div class="center_prod_box">
+                    <div class="product_title"><a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>"><?php echo $dto_pro->getName () ?></a></div>
+                    <div class="product_img">
+                        <a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>">
+                            <img src="<?php echo base_url ( $dto_pro->getThumb () ) ?>" alt="" border="0" width="150" height="150"/>
+                        </a>
+                    </div>
+                    <div class="prod_price">
+                        <span class="price">$<?php echo $dto_pro->getPrice () ?></span>
+                    </div>
                 </div>
-                <div class="prod_price">
-                    <span class="price">$<?php echo $dto_pro->getPrice () ?></span>
-                </div>
+                <div class="bottom_prod_box"></div>
+                <div class="prod_details_tab"> <a href="" title="header=[Add to cart] body=[&nbsp;] fade=[on]">
+                        <a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>" class="prod_details">details</a> </div>
             </div>
-            <div class="bottom_prod_box"></div>
-            <div class="prod_details_tab"> <a href="" title="header=[Add to cart] body=[&nbsp;] fade=[on]">
-                    <a href="<?php echo base_url ( 'default/detail?pro_id=' . $dto_pro->getPro_id () ) ?>" class="prod_details">details</a> </div>
-        </div>
-        <?php
+            <?php
+        }
+        if ( $page->num_page () > 1 )
+        {
+            echo $page->view_num_page ( base_url ( 'default/page' ));
+        }
     }
-    if ( $page->num_page () > 1 )
+    else
     {
-        echo $page->view_num_page ( base_url ( "default/product" ) );
-    }
-    }else{
         echo "<b>No Data!</b>";
     }
     ?>

@@ -54,7 +54,7 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array("render","dto_user","dto_role_and_user","dto_role",
                                 "dto_product","dto_image","dto_category","dto_cat_and_pro","session",
-                                "split_page");
+                                "split_page","dto_color");
 
 
 /*

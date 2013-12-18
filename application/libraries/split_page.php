@@ -1,10 +1,8 @@
 <?php
-
 class Split_page {
 
     private $arr_data;
     private $num_rec;
-
 
     public function set_data ( $arr_data, $num_rec )
     {
@@ -41,10 +39,10 @@ class Split_page {
         return $listData;
     }
 
-    public function view_num_page ( $url )
+    public function view_num_page ( $url, $class_name = NULL )
     {
         $view = '<div class="page">';
-        $view.='<a href="' . $url . '?page=1" >Start</a>';
+        $view.='<a href="' . $url . '?page=1" class="'.$class_name.'">Start</a>';
         $current = 1;
         if ( isset ( $_GET['page'] ) )
         {
@@ -55,14 +53,14 @@ class Split_page {
         {
             if ( isset ( $_GET['page'] ) && $_GET['page'] == $i )
             {
-                $view.='<a href="' . $url . '?page=' . $i . '" class="current">' . $i . '</a>';
+                $view.='<a href="' . $url . '?page=' . $i . '" class="current '.$class_name.'">' . $i . '</a>';
             }
             else
             {
                 if ( $i > ($current - 3) && $i < ($current + 3) )
                 {
                     $flag = TRUE;
-                    $view.=' <a href="' . $url . '?page=' . $i . '">' . $i . '</a>';
+                    $view.=' <a href="' . $url . '?page=' . $i . '" class="'.$class_name.'">' . $i . '</a>';
                 }
                 else
                 {
@@ -74,7 +72,7 @@ class Split_page {
                 }
             }
         }
-        $view.='<a href="' . $url . '?page=' . $this->num_page () . '">End</a>';
+        $view.='<a href="' . $url . '?page=' . $this->num_page () . '" class="' . $class_name . '">End</a>';
         $view.='</div>';
         return $view;
     }

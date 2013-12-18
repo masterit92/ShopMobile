@@ -103,6 +103,7 @@ class Product extends CI_Controller {
                 $dto_pro->setPrice ( $_POST['price'] );
                 $dto_pro->setDescription ( $_POST['description'] );
                 $dto_pro->setQuantity ( $_POST['quantity'] );
+                $dto_pro->setColor_id($_POST['id_color']);
                 if ( $dto_pro->getThumb () != NULL )
                 {
                     unlink ( $_POST['img_old'] );

@@ -8,8 +8,18 @@ class DTO_product {
     private $quantity;
     private $status;
     private $thumb;
+    private $color_id;
+    public function getColor_id ()
+    {
+        return $this->color_id;
+    }
 
-    public function getThumb ()
+    public function setColor_id ( $color_id )
+    {
+        $this->color_id = $color_id;
+    }
+
+        public function getThumb ()
     {
         return $this->thumb;
     }
@@ -19,7 +29,7 @@ class DTO_product {
         $this->thumb = $thumb;
     }
 
-    function set_property ( $pro_id, $name, $price, $description, $quantity, $status ,$thumb)
+    function set_property ( $pro_id, $name, $price, $description, $quantity, $status ,$thumb, $color_id)
     {
         $this->pro_id = $pro_id;
         $this->name = $name;
@@ -28,6 +38,7 @@ class DTO_product {
         $this->quantity = $quantity;
         $this->status = $status;
         $this->thumb=$thumb;
+        $this->color_id= $color_id;
     }
 
     public function getPro_id ()

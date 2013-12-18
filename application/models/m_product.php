@@ -1,5 +1,4 @@
 <?php
-
 class M_product extends My_database {
 
     private $table_name = "products";
@@ -12,7 +11,7 @@ class M_product extends My_database {
     protected function set_value_profile ( $row_pro )
     {
         $dto_pro = new DTO_product();
-        $dto_pro->set_property ( $row_pro['Pro_id'], $row_pro['Name'], $row_pro['Price'], $row_pro['Description'], $row_pro['Quantity'], $row_pro['Status'], $row_pro['Thumb'] );
+        $dto_pro->set_property ( $row_pro['Pro_id'], $row_pro['Name'], $row_pro['Price'], $row_pro['Description'], $row_pro['Quantity'], $row_pro['Status'], $row_pro['Thumb'], $row_pro['Color_id'] );
         return $dto_pro;
     }
 
@@ -62,6 +61,12 @@ class M_product extends My_database {
         return NULL;
     }
 
+    public function get_count_data ()
+    {
+       
+        return NULL;
+    }
+
     public function get_product_name ( $name_pro, $isStatus = FALSE )
     {
         try
@@ -87,16 +92,25 @@ class M_product extends My_database {
         return NULL;
     }
 
-    public function get_filter_price ( $start, $end,$isStatus = FALSE )
+    public function get_filter ( $start = NULL, $end = NULL, $color_id = array( ), $isStatus = FALSE )
     {
         try
         {
-            $arr_where = array( "Price >= "=>$start, "Price <= "=>$end);
+            $arr_where = array( );
+            if ( $start != NULL && $end != NULL )
+            {
+                $arr_where['Price >='] = $start;
+                $arr_where['Price <='] = $end;
+            }
+            if ( count ( $color_id ) > 0 )
+            {
+                $this->db->where_in ( "Color_id", $color_id );
+            }
             if ( $isStatus )
             {
                 $arr_where['Status'] = 1;
             }
-            
+
             $list_pro = $this->get_table ( $this->table_name, $arr_where );
             $arr_pro = array( );
             foreach ( $list_pro as $value )
@@ -470,6 +484,7 @@ class M_product extends My_database {
             $arr_data["Price"] = $this->anti_sql ( $pro->getPrice () );
             $arr_data["Description"] = $this->anti_sql ( $pro->getDescription () );
             $arr_data["Quantity"] = $this->anti_sql ( $pro->getQuantity () );
+            $arr_data["Color_id"] = $this->anti_sql ( $pro->getColor_id () );
         }
         else if ( $action === 'status' )
         {

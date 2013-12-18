@@ -1,6 +1,10 @@
 <?php
 $dto_pro = new DTO_product();
 $dto_pro = $data['pro'];
+$this->load->Model ( "m_color" );
+$m_color = new M_color();
+$dto_color = new DTO_color();
+$dto_color= $m_color->get_color_by_id ( $dto_pro->getColor_id ());
 ?>
 <div class="center_title_bar">Motorola 156 MX-VL</div>
 <div class="prod_box_big">
@@ -32,6 +36,8 @@ $dto_pro = $data['pro'];
                 </span><br />
                 Price: 
                 <span class="blue"><?php echo $dto_pro->getPrice () ?></span><br />
+                Color:
+                <span class="blue"><?php echo $dto_color->getName ()?></span><br />
             </div>
         </div>
         <div class="bottom_prod_box_big"></div>

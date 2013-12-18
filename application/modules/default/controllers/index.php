@@ -1,11 +1,11 @@
 <?php
-
 class Index extends CI_Controller {
 
     public function __construct ()
     {
         parent::__construct ();
         $this->load->Model ( "m_product" );
+        $this->load->library('session');
     }
 
     public function index ()
@@ -20,8 +20,9 @@ class Index extends CI_Controller {
     {
         if ( isset ( $_POST['sort_name'] ) )
         {
+            $arr_pro=$this->m_product->get_all_product ( TRUE, $_POST['sort_name'] );
             $temp['data']['cmb'] = 'name_' . $_POST['sort_name'];
-            $temp['data']['list_pro'] = $this->m_product->get_all_product ( TRUE, $_POST['sort_name'] );
+            $temp['data']['list_pro'] = $arr_pro;
             $this->load->view ( "home/product", $temp );
         }
         else if ( isset ( $_POST['sort_price'] ) )
@@ -61,7 +62,7 @@ class Index extends CI_Controller {
     public function product_search ()
     {
         $temp['data']['list_pro'] = $this->m_product->get_product_name ( $_POST['name'], TRUE );
-        $this->load->view ( "home/index", $temp );
+        $this->load->view ( "home/product", $temp );
     }
 
     public function load_header ()
@@ -70,15 +71,37 @@ class Index extends CI_Controller {
         $this->load->view ( "home/header" );
     }
 
-    
-
     public function filter_data ()
     {
-        $range = explode(' - ', $_POST['price'] );
-        $min = ltrim($range[0],"$");
-        $max = ltrim($range[1],"$");
-        $temp['data']['list_pro']=$this->m_product->get_filter_price($min, $max,TRUE);
-        $this->load->view ( "home/product" , $temp);
+        $range = explode ( ' - ', $_POST['price'] );
+        $min = ltrim ( $range[0], "$" );
+        $max = ltrim ( $range[1], "$" );
+        if ( isset ( $_POST['arr_color'] ) )
+        {
+            $temp['data']['list_pro'] = $this->m_product->get_filter ( $min, $max, $_POST["arr_color"], TRUE );
+        }else{
+            $temp['data']['list_pro'] = $this->m_product->get_filter ( $min, $max, NULL, TRUE );
+        }
+        
+        $this->load->view ( "home/product", $temp );
+    }
+
+    public function page ()
+    {
+      // var_dump ( $this->session->userdata ( "arr_pro" ) );die;
+        if (FALSE && $this->session->userdata ( "data_list" ) )
+        {
+            $list= $this->session->userdata ( "data_list" );
+            $temp['data']['list_pro'] = $list;
+        }
+        else
+        {
+        $temp['data']['list_pro'] = $this->m_product->get_all_product ( TRUE );
+        }
+
+        $temp['title'] = "Product";
+        $temp['template'] = 'home/product';
+        $this->load->view ( "fontend/layout", $temp );
     }
 
 }

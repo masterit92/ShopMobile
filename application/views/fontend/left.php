@@ -1,4 +1,29 @@
+<?php
+$this->load->Model ( "m_color" );
+$m_color = new M_color();
+$dto_color = new DTO_color();
+$list_color = $m_color->get_all_color ();
+$arr_id_color = '';
+foreach ( $list_color as $dto_color )
+{
+    $arr_id_color.= $dto_color->getColor_id () . ',';
+}
+$arr_id_color = rtrim ( $arr_id_color, ',' );
+?>
 <script>
+    function get_arr_check() {
+        arr_id_color = new Array(<?php echo $arr_id_color ?>);
+        arr_check = new Array();
+        k = 0;
+        for (i = 0; i < arr_id_color.length; i++) {
+            element = "#ColorID_" + arr_id_color[i];
+            if ($(element).is(':checked')) {
+                arr_check[k] = arr_id_color[i];
+                k++;
+            }
+        }
+        return  arr_check;
+    }
     $(function() {
         $(".list_cat").click(function() {
             cat_id = $(this).attr('cat_id');
@@ -24,6 +49,20 @@
         $("#slider-range").slider({
             change: function(event, ui) {
                 price = $("#amount").val();
+                arr_check = get_arr_check();
+                if (arr_check.length > 0) {
+                    $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {price: price, arr_color: arr_check});
+                } else {
+                    $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {price: price});
+                }
+            }
+        });
+        $(".color_event").click(function() {
+            arr_check = get_arr_check();
+            price = $("#amount").val();
+            if (arr_check.length > 0) {
+                $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {price: price, arr_color: arr_check});
+            } else {
                 $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {price: price});
             }
         });
@@ -85,11 +124,24 @@
     <div class="title_box">Filter</div>
     <div class="border_box">
         <p>
-            <label for="amount">Price range:</label>
+            <label for="amount"><b>Price range:</b></label>
             <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
         </p>
 
         <div id="slider-range"></div>
+        <div class="div_color">
+            <b>Chooser Color Product:</b><br/>
+            <?php
+            foreach ( $list_color as $dto_color )
+            {
+                ?>
+                <input type="checkbox" class="color_event" id ="<?php echo "ColorID_" . $dto_color->getColor_id () ?>" />
+                <?php echo $dto_color->getName () ?>
+                <br/>
+                <?php
+            }
+            ?>
+        </div>
     </div>
     <div class="banner_adds"> <a href="#"><img src="<?php echo base_url ( 'public/fontend/images/bann2.jpg' ) ?>" alt="" border="0" /></a> </div>
 </div>

@@ -17,6 +17,7 @@ else
                 <th>Name</th>
                 <th>Thumb</th>
                 <th>Quantity</th>
+                <th>Color</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -36,8 +37,12 @@ else
             }
             $list_data = $page->get_data_page ( $curr_page );
             $pro = new DTO_product();
+            $color= new DTO_color();
+            $this->load->Model("m_color");
+            $m_color= new M_color();
             foreach ( $list_data as $pro )
             {
+                $color= $m_color->get_color_by_id($pro->getColor_id ());
                 ?>
                 <tr>
                     <td><?php echo $pro->getPro_id (); ?></td>
@@ -46,6 +51,7 @@ else
                         <img src=" <?php echo base_url ( $pro->getThumb () ); ?>" width="100" height="100"/>
                     </td>
                     <td><?php echo $pro->getQuantity (); ?></td>
+                    <td><?php echo $color->getName () ?></td>
                     <td>
                         <a href="<?php echo base_url ( 'admin/product/edit_status?id=' ) . $pro->getPro_id () . '&status=' . $pro->getStatus () ?>"> 
                             <?php echo ($pro->getStatus () == 1) ? 'Active' : 'No Active' ?>
@@ -62,7 +68,7 @@ else
             }
             ?>
             <tr>
-                <td colspan="6">
+                <td colspan="7">
                     <a href="<?php echo base_url ( 'admin/product/create' ); ?>">Add New</a>
                 </td>
             </tr>
