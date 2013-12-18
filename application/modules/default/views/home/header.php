@@ -1,3 +1,4 @@
+
 <?php
 if ( !isset ( $_POST['data_pro'] ) )
 {
@@ -6,16 +7,17 @@ if ( !isset ( $_POST['data_pro'] ) )
 else
 {
     $list_pro = $_POST['data_pro'];
-    if($list_pro>4){
-        $list_pro=0;
+    if ( $list_pro > 4 )
+    {
+        $list_pro = 0;
     }
 }
 $this->load->Model ( "m_product" );
 $m_pro = new M_product();
-$five_pro = $m_pro->get_limit_product ();
+$five_pro = $m_pro->get_limit_product ( 5, 0, TRUE );
 $dto_pro = new DTO_product();
 $dto_pro = $five_pro[$list_pro];
-$list_pro ++;
+$list_pro++;
 ?>
 <script>
     $(function() {
@@ -24,7 +26,7 @@ $list_pro ++;
             $('#header').load("<?php echo base_url ( 'default/load_header' ); ?>", {data_pro: pro_id});
         });
 //        setInterval(function() {
-//            $('#header').load("<?php //echo base_url ( 'default/load_header' ); ?>", {data_pro: <?php //echo $list_pro ?>});
+//            $('#header').load("<?php //echo base_url ( 'default/load_header' );  ?>", {data_pro: <?php //echo $list_pro  ?>});
 //            //alert();
 //        }, 6000);
     });
@@ -54,10 +56,10 @@ $list_pro ++;
                 for ( $i = 0; $i < 5; $i++ )
                 {
                     ?>
-                <a href="#" <?php echo ($i == $cur) ? 'class="current pro"' : 'class="pro"' ?> pro_id="<?php echo $i ?>"> <?php echo $i + 1; ?> </a> 
-    <?php
-}
-?>
+                    <a href="#" <?php echo ($i == $cur) ? 'class="current pro"' : 'class="pro"' ?> pro_id="<?php echo $i ?>"> <?php echo $i + 1; ?> </a> 
+                    <?php
+                }
+                ?>
             </div>
         </div>
         <div class="top_divider"><img src="<?php echo base_url ( 'public/fontend/images/header_divider.png' ) ?>" alt="" width="1" height="164" /></div>

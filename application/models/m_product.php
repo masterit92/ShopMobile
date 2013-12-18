@@ -1,4 +1,5 @@
 <?php
+
 class M_product extends My_database {
 
     private $table_name = "products";
@@ -61,11 +62,7 @@ class M_product extends My_database {
         return NULL;
     }
 
-    public function get_count_data ()
-    {
-       
-        return NULL;
-    }
+    
 
     public function get_product_name ( $name_pro, $isStatus = FALSE )
     {
@@ -177,14 +174,17 @@ class M_product extends My_database {
         return NULL;
     }
 
-    public function get_limit_product ( $num_pro = 5, $start = 0 )
+    public function get_limit_product ( $num_pro = 5, $start = 0, $isStatus = FALSE )
     {
         try
         {
-            $this->db->where ( "Status", "1" );
+            $arr_where=array();
+            if ( $isStatus )
+            {
+                $arr_where["Status"]=1;
+            }
             $this->db->limit ( $num_pro, $start );
-            $query = $this->db->get ( $this->table_name );
-            $list_pro = $query->result_array ();
+            $list_pro = $this->get_table($this->table_name,$arr_where);
             $arr_pro = array( );
             foreach ( $list_pro as $value )
             {

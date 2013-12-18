@@ -23,7 +23,7 @@ if ( isset ( $data['color'] ) )
             </ol>
         </fieldset>
         <fieldset id="submitform">
-            <input type="submit" id="formsubmit" name="save" value="<?php echo isset ( $color ) ? 'Edit Role' : 'Create Role' ?>" />
+            <input type="submit" id="formsubmit" name="save" value="<?php echo isset ( $color ) ? 'Edit Color' : 'Create Color' ?>" />
             <input type="button" id="formsubmit" name="back" value="Back" onclick="javascript: history.go(-1)" />
         </fieldset>
     </form>

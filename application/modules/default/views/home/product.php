@@ -1,21 +1,3 @@
-<?php
-$arr_pro=$data['list_pro'];
-$page = new Split_page();
-$page->set_data ( $data['list_pro'], 6 );
-$curr_page = 1;
-if ( isset ( $_GET['page'] ) )
-{
-    $curr_page = $_GET['page'];
-}
-else
-{
-    $_GET['page'] = 1;
-}
-$list_data = $page->get_data_page ( $curr_page );
-//$this->session->set_userdata ( 'arr_pro', $list_data );
- //var_dump ( $this->session->userdata ( "arr_pro" ) );
-
-?>
 <script>
     $(function() {
         $("#rdb_name_desc").click(function() {
@@ -30,12 +12,35 @@ $list_data = $page->get_data_page ( $curr_page );
         $("#rdb_price_asc").click(function() {
             $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {sort_price: 'ASC'});
         });
-        $(".class_page").click(function() {
+        
+        $(".page_event").click(function() {
+            page = $(this).attr('id');
+            cat_id = <?php echo $data['cat_id'] ?>;
+            if (cat_id > 0) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product_category' ); ?>", {page: page, cat_id: cat_id});
+            } 
+            if ($("#rdb_name_desc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'DESC'});
+            } 
+            if ($("#rdb_name_asc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'ASC'});
+            } 
+            if ($("#rdb_price_desc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'DESC'});
+            } 
+            if ($("#rdb_price_asc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'ASC'});
+            }
+            $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page});
+            
 
         });
 
     });
 </script>
+<?php
+$list_data = $data["list_pro"];
+?>
 <div class="center_title_bar">All Products 
     <input type="radio" id="rdb_name_desc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'name_DESC') ? 'checked' : '' ?>/> Name &DoubleUpArrow;
     <input type="radio" id="rdb_name_asc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'name_ASC') ? 'checked' : '' ?>/> Name &DoubleDownArrow;
@@ -69,10 +74,7 @@ $list_data = $page->get_data_page ( $curr_page );
             </div>
             <?php
         }
-        if ( $page->num_page () > 1 )
-        {
-            echo $page->view_num_page ( base_url ( 'default/page' ));
-        }
+        echo $data['view_page'];
     }
     else
     {
