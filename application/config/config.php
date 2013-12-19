@@ -13,7 +13,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://shopmobile.local/';
+$config['base_url']	= 'http://shopmobile.loc/';
 
 /*
 |--------------------------------------------------------------------------
