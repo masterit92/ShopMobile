@@ -105,7 +105,20 @@ class Index extends CI_Controller {
 
     public function product_search ()
     {
-        $temp['data']['list_pro'] = $this->m_product->get_product_name ( $_POST['name'], TRUE );
+        $s_paging= new M_paging();
+        $s_paging->set_infor('products', 0, 6);
+        $_GET['page'] = 1;
+
+        if ( isset ( $_POST['page'] ) )
+        {
+            $_GET['page'] = $_POST['page'] + 1;
+            $start = $s_paging->getNum_re () * $_POST['page'];
+           $s_paging->setStart ( $start );
+        }
+        $s_paging->setArr_like(array("Name"=>$_POST['name']));
+        $temp['data']['search']=1;
+        $temp['data']['list_pro'] = $s_paging->get_limit_product ();
+        $temp['data']['view_page'] =$s_paging->view_html ( "#", "page_event" );
         $this->load->view ( "home/product", $temp );
     }
 
@@ -117,30 +130,31 @@ class Index extends CI_Controller {
 
     public function filter_data ()
     {
-        $this->m_paging->setNum_re ( 6 );
+        $f_paging= new M_paging();
+        $f_paging->set_infor('products', 0, 6);
         $_GET['page'] = 1;
 
         if ( isset ( $_POST['page'] ) )
         {
             $_GET['page'] = $_POST['page'] + 1;
-            $start = $this->m_paging->getNum_re () * $_POST['page'];
-            $this->m_paging->setStart ( $start );
+            $start =$f_paging->getNum_re () * $_POST['page'];
+            $f_paging->setStart ( $start );
         }
 
         $range = explode ( ' - ', $_POST['price'] );
         $min = ltrim ( $range[0], "$" );
         $max = ltrim ( $range[1], "$" );
         $arr_where = array( "Status" => "1", "Price >=" => $min, "Price <=" => $max );
-        $this->m_paging->setArr_where ( $arr_where );
-        $temp['data']['f_price']=$range;
+        $f_paging->setArr_where ( $arr_where );
+        $temp['data']['f_price']=$_POST['price'];
         if ( isset ( $_POST['arr_color'] ) )
         {
             $arr_where_in=array("Color_id"=>$_POST['arr_color']);
-            $this->m_paging->setArr_where_in ($arr_where_in);
+            $f_paging->setArr_where_in ($arr_where_in);
             $temp['data']['f_color']=$_POST['arr_color'];
         }
-        $temp['data']['list_pro'] = $this->m_paging->get_limit_product ();
-        $temp['data']['view_page'] = $this->m_paging->view_html ( "#", "page_event" );
+        $temp['data']['list_pro'] = $f_paging->get_limit_product ();
+        $temp['data']['view_page'] = $f_paging->view_html ( "#", "page_event" );
         $this->load->view ( "home/product", $temp );
     }
 

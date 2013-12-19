@@ -12,24 +12,30 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
             <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-            
+
     </head> 
 
     <body> 
-        <div id="main_container">
-            <?php $this->load->view ( "home/header" ); ?> 
-            <div id="main_content">
+        <div id="main_content">
+            <!--header-->
+            <div class="header">
+                <?php $this->load->view ( "home/header" ); ?> 
+
                 <?php $this->load->view ( "fontend/menu" ); ?> 
                 <?php $this->load->view ( "fontend/left" ); ?> 
-                <div class="center_content">
-                    <div id="list_pro">
-                        <?php
-                        $this->load->view ( $template, $data = '' );
-                        ?>  
-                    </div>
+            </div>
+            <!--content-->
+            <div class="center_content">
+                <div id="list_pro">
+                    <?php
+                    $this->load->view ( $template, $data = '' );
+                    ?>  
                 </div>
             </div>
-            <?php $this->load->view ( "fontend/right" ); ?> 
+            <!--footer-->
+            <div id="footer">
+                <?php $this->load->view ( "fontend/right" ); ?> 
+            </div>
         </div>
         <?php $this->load->view ( "fontend/footer" ); ?> 
         </div>

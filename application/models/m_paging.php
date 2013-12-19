@@ -1,5 +1,4 @@
 <?php
-
 class M_paging extends My_database {
 
     protected $table_name;
@@ -8,6 +7,12 @@ class M_paging extends My_database {
     protected $arr_where = NULL;
     protected $arr_where_in = NULL;
     protected $arr_order_by = NULL;
+    protected $arr_like = NULL;
+
+    public function setArr_like ( $arr_like )
+    {
+        $this->arr_like = $arr_like;
+    }
 
     public function setArr_where ( $arr_where )
     {
@@ -38,12 +43,12 @@ class M_paging extends My_database {
     {
         $this->num_re = $num_re;
     }
+
     public function getNum_re ()
     {
         return $this->num_re;
     }
 
-    
     public function __construct ()
     {
         parent::__construct ();
@@ -66,6 +71,7 @@ class M_paging extends My_database {
     //arr_where=array("column"=>"vakue")
     //arr_where_in=array("column"=>array("value1","value2"))
     //arr_order_by=array("column"=>value)
+    //arr_like=array("column"=>"value")
     protected function set_data ()
     {
         if ( count ( $this->arr_where ) > 0 )
@@ -87,6 +93,13 @@ class M_paging extends My_database {
             foreach ( $this->arr_order_by as $key => $value )
             {
                 $this->db->order_by ( $key, $value );
+            }
+        }
+        if ( count ( $this->arr_like ) > 0 )
+        {
+            foreach ( $this->arr_like as $key => $value )
+            {
+                $this->db->like($key, $value);
             }
         }
     }
@@ -147,14 +160,14 @@ class M_paging extends My_database {
         {
             if ( isset ( $_GET['page'] ) && $_GET['page'] == $i )
             {
-                $view.='<a href="' . $url . '?page=' . $i . '" class="current ' . $class_name . '" id="'.($i-1).'">' . $i . '</a>';
+                $view.='<a href="' . $url . '?page=' . $i . '" class="current ' . $class_name . '" id="' . ($i - 1) . '">' . $i . '</a>';
             }
             else
             {
                 if ( $i > ($current - 3) && $i < ($current + 3) )
                 {
                     $flag = TRUE;
-                    $view.=' <a href="' . $url . '?page=' . $i . '" class="' . $class_name . '" id="'.($i-1).'">' . $i . '</a>';
+                    $view.=' <a href="' . $url . '?page=' . $i . '" class="' . $class_name . '" id="' . ($i - 1) . '">' . $i . '</a>';
                 }
                 else
                 {
@@ -166,7 +179,7 @@ class M_paging extends My_database {
                 }
             }
         }
-        $view.='<a href="' . $url . '?page=' . $this->get_num_page () . '" class="' . $class_name . '" id="'.($this->get_num_page ()-1).'">End</a>';
+        $view.='<a href="' . $url . '?page=' . $this->get_num_page () . '" class="' . $class_name . '" id="' . ($this->get_num_page () - 1) . '">End</a>';
         $view.='</div>';
         return $view;
     }

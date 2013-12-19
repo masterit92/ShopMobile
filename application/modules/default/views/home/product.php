@@ -12,28 +12,43 @@
         $("#rdb_price_asc").click(function() {
             $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {sort_price: 'ASC'});
         });
-        
+
         $(".page_event").click(function() {
             page = $(this).attr('id');
-            cat_id = <?php echo $data['cat_id'] ?>;
-            if (cat_id > 0) {
-                $('#list_pro').load("<?php echo base_url ( 'default/product_category' ); ?>", {page: page, cat_id: cat_id});
-            } 
-            if ($("#rdb_name_desc").is(':checked')) {
-                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'DESC'});
-            } 
-            if ($("#rdb_name_asc").is(':checked')) {
-                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'ASC'});
-            } 
-            if ($("#rdb_price_desc").is(':checked')) {
-                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'DESC'});
-            } 
-            if ($("#rdb_price_asc").is(':checked')) {
-                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'ASC'});
+            cat_id =<?php echo isset ( $data['cat_id'] ) ? $data['cat_id'] : '-1' ?>;
+            f_price =<?php echo isset ( $data['f_price'] ) ? "'" . $data['f_price'] . "'" : "''" ?>;
+            f_color = get_arr_check();
+            search =<?php echo isset ( $data['search'] ) ? $data['search'] : '0' ?>;
+            if (search >0) {
+                name = $("#txtSearch").val();
+                if (name.length > 0) {
+                    $('#list_pro').load("<?php echo base_url ( 'default/product_search' ); ?>", {page: page,name: name});
+                }
             }
-            $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page});
-            
-
+            else if (f_price !== '') {
+                if (f_color.length <= 0) {
+                    $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {page: page, price: f_price});
+                } else {
+                    $('#list_pro').load("<?php echo base_url ( 'default/filter_data' ); ?>", {page: page, price: f_price, arr_color: f_color});
+                }
+            }
+            else if (cat_id > 0) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product_category' ); ?>", {page: page, cat_id: cat_id});
+            }
+            else if ($("#rdb_name_desc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'DESC'});
+            }
+            else if ($("#rdb_name_asc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_name: 'ASC'});
+            }
+            else if ($("#rdb_price_desc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'DESC'});
+            }
+            else if ($("#rdb_price_asc").is(':checked')) {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page, sort_price: 'ASC'});
+            } else {
+                $('#list_pro').load("<?php echo base_url ( 'default/product' ); ?>", {page: page});
+            }
         });
 
     });
@@ -44,8 +59,8 @@ $list_data = $data["list_pro"];
 <div class="center_title_bar">All Products 
     <input type="radio" id="rdb_name_desc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'name_DESC') ? 'checked' : '' ?>/> Name &DoubleUpArrow;
     <input type="radio" id="rdb_name_asc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'name_ASC') ? 'checked' : '' ?>/> Name &DoubleDownArrow;
-    <input type="radio" id="rdb_price_desc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'price_DESC') ? 'checked' : '' ?>/> Price &DoubleUpArrow;
-    <input type="radio" id="rdb_price_asc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'price_ASC') ? 'checked' : '' ?>/> Price &DoubleDownArrow;
+    <input type="radio" id="rdb_price_desc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'price_DESC') ? 'checked' : '' ?>/> Price &DoubleDownArrow;
+    <input type="radio" id="rdb_price_asc" name="rdb" <?php echo(isset ( $data['cmb'] ) && $data['cmb'] === 'price_ASC') ? 'checked' : '' ?>/> Price &DoubleUpArrow;
 </div>
 <div id="sort_pro">
     <?php
