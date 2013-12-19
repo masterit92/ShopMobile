@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2013 at 03:37 AM
+-- Generation Time: Dec 19, 2013 at 04:52 AM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -101,6 +101,27 @@ INSERT INTO `cat_and_pro` (`Pro_id`, `Cat_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `color`
+--
+
+CREATE TABLE IF NOT EXISTS `color` (
+  `Color_id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`Color_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`Color_id`, `Name`) VALUES
+(1, 'Red'),
+(2, 'Pink'),
+(3, 'Blue');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `images`
 --
 
@@ -143,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `Quantity` int(11) NOT NULL DEFAULT '1',
   `Status` smallint(6) NOT NULL DEFAULT '1',
   `Thumb` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Color_id` int(11) NOT NULL,
   PRIMARY KEY (`Pro_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=27 ;
 
@@ -150,33 +172,33 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`Pro_id`, `Name`, `Price`, `Description`, `Quantity`, `Status`, `Thumb`) VALUES
-(1, 'Pro1', 12, 'haha', 0, 1, 'public/backend/images/lt-leo-hitech-600x1068.jpg'),
-(2, 'Pro2', 12, '12', 12, 1, 'public/backend/images/hhhh.png'),
-(3, 'pro3', 231, '21', 121, 1, 'public/backend/images/quanao.jpg'),
-(4, 'Pro 3', 12, 'ffdfd', 121, 1, 'public/backend/images/ssss.jpg'),
-(5, 'pro4', 21, '221', 121, 1, 'public/backend/images/33333333333.jpg'),
-(6, 'Pro 6', 54, '545', 54, 1, 'public/backend/images/1111.jpg'),
-(7, 'sdd', 0, '', 1, 1, 'public/backend/images/4444444444.jpg'),
-(8, 'Nokia lumia', 123, 'Lumia 520 sẽ nằm trong phân khúc smartphone tầm trung bình thấp với màn hình 4 inch dùng công nghệ Super Sensitive Touch (cho phép người dùng thao tác bằng cả găng tay dày), chip lõi kép tốc độ 1 GHz, RAM 512 MB và dung lượng lưu trữ trong 8 GB. Lumia 520 hỗ trợ khe cắm thẻ nhớ ngoài, camera sau 5 megapixel và không có camera trước. Trong khi đó, Lumia 720 sở hữu cấu hình gần như tương đồng với Lumia 520 nhưng dùng camera sau 6 megapixel, màn hình 4,3 inch và được tích hợp camera 2 megapixel phía trước.', 123, 1, 'public/backend/images/HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(9, 'pro 8', 23, 'dcsfvds', 12, 1, 'public/backend/images/5852_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(10, 'Pro 234', 434, 'hgnf', 12, 1, 'public/backend/images/4444_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(11, 'Pro1324', 3232, '33435r', 21, 1, 'public/backend/images/5702_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(12, 'Nokia lumia4354', 43, 'fsgfds', 12, 1, 'public/backend/images/1341_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(13, 'Nokia lumia 43', 21, '213edq', 21, 1, 'public/backend/images/9682_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(14, 'Nokia lumia 3213', 34, 'savcdsv', 2121, 1, 'public/backend/images/4239_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(15, 'Nokia lumia232', 332, 'rewt4fds', 32, 1, 'public/backend/images/6396_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(16, 'Nokia lumia43t', 33, 'scdsfcds', 43, 1, 'public/backend/images/9941_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(17, 'Nokia lumia45465', 54, 'fdfd', 12, 1, 'public/backend/images/6529_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(18, 'Nokia lumia545', 32, 'dbhgfdbfds', 23, 1, 'public/backend/images/2093_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(19, 'Nokia lumia32r', 43, 'fvdsvgfd', 32, 1, 'public/backend/images/3621_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(20, 'Nokia lumia32r', 0, 'w', 0, 1, 'public/backend/images/1506_HT_nokia_lumia1020_jef_130711_16x9_992.jpg'),
-(21, 'Nokia lumia56', 32, 'gfdsxfd', 0, 1, 'public/backend/images/aa.jpg'),
-(22, 'Nokia lumia4535', 35, 'dsàv', 0, 1, 'public/backend/images/6788_aa.jpg'),
-(23, 'Nokia lumia th', 32, 'vfdsg', 12, 1, 'public/backend/images/6269_aa.jpg'),
-(24, 'Nokia lumia 3234', 345, 'gfdfds', 12, 1, 'public/backend/images/2709_aa.jpg'),
-(25, 'Nokia lumia32t', 34, 'sagfdshgfdhg', 0, 1, 'public/backend/images/4966_aa.jpg'),
-(26, 'Nokia lumia32ghh', 12, 'fdsgfds', 12, 1, 'public/backend/images/4581_aa.jpg');
+INSERT INTO `products` (`Pro_id`, `Name`, `Price`, `Description`, `Quantity`, `Status`, `Thumb`, `Color_id`) VALUES
+(1, 'Pro1', 12, 'haha', 0, 1, 'public/backend/images/lt-leo-hitech-600x1068.jpg', 2),
+(2, 'Pro2', 12, '12', 12, 1, 'public/backend/images/hhhh.png', 1),
+(3, 'pro3', 231, '21', 121, 1, 'public/backend/images/quanao.jpg', 1),
+(4, 'Pro 3', 12, 'ffdfd', 121, 1, 'public/backend/images/ssss.jpg', 1),
+(5, 'pro4', 21, '221', 121, 1, 'public/backend/images/33333333333.jpg', 3),
+(6, 'Pro 6', 54, '545', 54, 1, 'public/backend/images/1111.jpg', 2),
+(7, 'sdd', 0, '', 1, 1, 'public/backend/images/4444444444.jpg', 2),
+(8, 'Nokia lumia', 123, 'Lumia 520 sẽ nằm trong phân khúc smartphone tầm trung bình thấp với màn hình 4 inch dùng công nghệ Super Sensitive Touch (cho phép người dùng thao tác bằng cả găng tay dày), chip lõi kép tốc độ 1 GHz, RAM 512 MB và dung lượng lưu trữ trong 8 GB. Lumia 520 hỗ trợ khe cắm thẻ nhớ ngoài, camera sau 5 megapixel và không có camera trước. Trong khi đó, Lumia 720 sở hữu cấu hình gần như tương đồng với Lumia 520 nhưng dùng camera sau 6 megapixel, màn hình 4,3 inch và được tích hợp camera 2 megapixel phía trước.', 123, 1, 'public/backend/images/HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 1),
+(9, 'pro 8', 23, 'dcsfvds', 12, 1, 'public/backend/images/5852_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(10, 'Pro 234', 434, 'hgnf', 12, 1, 'public/backend/images/4444_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 1),
+(11, 'Pro1324', 3232, '33435r', 21, 1, 'public/backend/images/5702_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 2),
+(12, 'Nokia lumia4354', 43, 'fsgfds', 12, 1, 'public/backend/images/1341_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(13, 'Nokia lumia 43', 21, '213edq', 21, 1, 'public/backend/images/9682_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 1),
+(14, 'Nokia lumia 3213', 34, 'savcdsv', 2121, 1, 'public/backend/images/4239_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 2),
+(15, 'Nokia lumia232', 332, 'rewt4fds', 32, 1, 'public/backend/images/6396_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 1),
+(16, 'Nokia lumia43t', 33, 'scdsfcds', 43, 1, 'public/backend/images/9941_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 2),
+(17, 'Nokia lumia45465', 54, 'fdfd', 12, 1, 'public/backend/images/6529_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(18, 'Nokia lumia545', 32, 'dbhgfdbfds', 23, 1, 'public/backend/images/2093_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(19, 'Nokia lumia32r', 43, 'fvdsvgfd', 32, 1, 'public/backend/images/3621_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(20, 'Nokia lumia32r', 0, 'w', 0, 1, 'public/backend/images/1506_HT_nokia_lumia1020_jef_130711_16x9_992.jpg', 3),
+(21, 'Nokia lumia56', 32, 'gfdsxfd', 0, 1, 'public/backend/images/aa.jpg', 3),
+(22, 'Nokia lumia4535', 35, 'dsàv', 0, 1, 'public/backend/images/6788_aa.jpg', 1),
+(23, 'Nokia lumia th', 32, 'vfdsg', 12, 1, 'public/backend/images/6269_aa.jpg', 2),
+(24, 'Nokia lumia 3234', 345, 'gfdfds', 12, 1, 'public/backend/images/2709_aa.jpg', 2),
+(25, 'Nokia lumia32t', 34, 'sagfdshgfdhg', 0, 1, 'public/backend/images/4966_aa.jpg', 2),
+(26, 'Nokia lumia32ghh', 12, 'fdsgfds', 12, 1, 'public/backend/images/4581_aa.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -189,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `Name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Status` smallint(6) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `role`
@@ -199,7 +221,8 @@ INSERT INTO `role` (`Role_id`, `Name`, `Status`) VALUES
 (1, 'admin', 1),
 (3, 'product', 1),
 (5, 'user', 1),
-(6, 'category', 1);
+(6, 'category', 1),
+(7, 'color', 1);
 
 -- --------------------------------------------------------
 
@@ -219,7 +242,8 @@ CREATE TABLE IF NOT EXISTS `role_and_user` (
 
 INSERT INTO `role_and_user` (`User_id`, `Role_id`) VALUES
 (2, 1),
-(3, 6);
+(3, 7),
+(4, 6);
 
 -- --------------------------------------------------------
 
