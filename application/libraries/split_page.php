@@ -78,5 +78,3 @@ class Split_page {
     }
 
 }
-
-?>

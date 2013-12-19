@@ -19,6 +19,5 @@
             <a href="<?php echo base_url ( 'admin/user/edit_profile?id=' ) . $dto_user->getUser_id (); ?>">Edit profile</a> | 
             <a href="<?php echo base_url ( 'admin/logout' ); ?>">Logout</a>
         </div>
-
     </div>
 </div>

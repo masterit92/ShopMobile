@@ -232,5 +232,3 @@ class M_users extends My_database {
     }
 
 }
-
-?>

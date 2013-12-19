@@ -515,4 +515,3 @@ class M_product extends My_database {
 
 }
 
-?>

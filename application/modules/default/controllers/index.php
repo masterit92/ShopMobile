@@ -23,8 +23,10 @@ class Index extends CI_Controller {
 
     public function product ()
     {
+        $arr_where = array( "Status" => "1" );
         $paging= new M_paging();
         $paging->set_infor('products', 0, 6);
+        $paging->setArr_where($arr_where);
         $_GET['page'] = 1;
 
         if ( isset ( $_POST['page'] ) )

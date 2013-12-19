@@ -6,7 +6,7 @@ if ( isset ( $data["error"] ) && !$data['error'] )
 }
 else
 {
-   
+ 
     ?>
 
     <table class="zebra">
@@ -37,12 +37,12 @@ else
             }
             $list_data = $page->get_data_page ( $curr_page );
             $pro = new DTO_product();
-            $color= new DTO_color();
-            $this->load->Model("m_color");
-            $m_color= new M_color();
+            $color = new DTO_color();
+            $this->load->Model ( "m_color" );
+            $m_color = new M_color();
             foreach ( $list_data as $pro )
             {
-                $color= $m_color->get_color_by_id($pro->getColor_id ());
+                $color = $m_color->get_color_by_id ( $pro->getColor_id () );
                 ?>
                 <tr>
                     <td><?php echo $pro->getPro_id (); ?></td>
@@ -61,7 +61,7 @@ else
                         <a href="<?php echo base_url ( 'admin/product/view_image?pro_id=' . $pro->getPro_id () ); ?>">Image</a> | 
                         <a href="<?php echo base_url ( 'admin/product/set_category_product?pro_id=' . $pro->getPro_id () ); ?>">Category</a> | 
                         <a href="<?php echo base_url ( 'admin/product/edit?id=' . $pro->getPro_id () ); ?>">Edit</a> | 
-                        <a href="<?php echo base_url ( 'admin/product/delete?id=' . $pro->getPro_id () ); ?>" onclick="return confirm('I want delete!');">Delete</a>
+                        <a href="<?php echo base_url ( 'admin/product/delete?id=' . $pro->getPro_id () ); ?>" onclick="return confirm('I want delete!');" >Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -75,6 +75,6 @@ else
         </tbody>
     </table>
     <?php
-     echo $page->view_num_page ( base_url ( "admin/product/list_product" ) );
+    echo $page->view_num_page ( base_url ( "admin/product/list_product" ) );
 }
 ?>

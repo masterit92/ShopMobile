@@ -105,5 +105,3 @@ class M_role extends My_database {
     }
 
 }
-
-?>

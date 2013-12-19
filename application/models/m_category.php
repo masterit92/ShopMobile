@@ -179,5 +179,3 @@ class M_category extends My_database {
     }
 
 }
-
-?>

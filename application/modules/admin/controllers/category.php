@@ -158,5 +158,3 @@ class Category extends CI_Controller {
     }
 
 }
-
-?>

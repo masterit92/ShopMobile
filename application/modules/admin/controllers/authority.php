@@ -100,5 +100,3 @@ class Authority extends CI_Controller {
     }
 
 }
-
-?>

@@ -8,6 +8,7 @@ class Product extends CI_Controller {
         parent::__construct ();
         $this->load->Model ( 'm_product' );
         $this->load->Model ( 'm_category' );
+        $this->load->Model ( "m_check_references" );
         if ( !$this->check () )
         {
             $this->check_role = FALSE;
@@ -54,6 +55,7 @@ class Product extends CI_Controller {
         if ( $this->check_role )
         {
             $id = $this->input->get ( 'id' );
+            
             if ( $this->m_product->delete_pro ( $id ) )
             {
                 //success
@@ -103,7 +105,7 @@ class Product extends CI_Controller {
                 $dto_pro->setPrice ( $_POST['price'] );
                 $dto_pro->setDescription ( $_POST['description'] );
                 $dto_pro->setQuantity ( $_POST['quantity'] );
-                $dto_pro->setColor_id($_POST['id_color']);
+                $dto_pro->setColor_id ( $_POST['id_color'] );
                 if ( $dto_pro->getThumb () != NULL )
                 {
                     unlink ( $_POST['img_old'] );
@@ -278,8 +280,8 @@ class Product extends CI_Controller {
                     $count_img = $_POST["count_img"];
                     for ( $i = 0; $i < $count_img; $i++ )
                     {
-                        $filed_name= 'img'.$i;
-                        if ($_FILES[$filed_name]['name'] != NULL )
+                        $filed_name = 'img' . $i;
+                        if ( $_FILES[$filed_name]['name'] != NULL )
                         {
                             $img = new DTO_image();
                             $img->setUrl ( $this->upload_img ( "$filed_name" ) );
@@ -343,5 +345,3 @@ class Product extends CI_Controller {
     }
 
 }
-
-?>
